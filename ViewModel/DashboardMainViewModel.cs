@@ -22,7 +22,7 @@ namespace GolemUI.ViewModel
         MainWindowState MainWindowState { get; set; }
         public DashboardMainViewModel(IPriceProvider priceProvider, IPaymentService paymentService, IProviderConfig providerConfig, IProcessController processController, Src.BenchmarkService benchmarkService, IBenchmarkResultsProvider benchmarkResultsProvider,
             IStatusProvider statusProvider, IHistoryDataProvider historyDataProvider, INotificationService notificationService, IUserSettingsProvider userSettingsProvider,
-            ITaskProfitEstimator taskProfitEstimator)
+            ITaskProfitEstimator taskProfitEstimator, ISchedulingProvider schedulingProvider)
         {
             _userSettingsProvider = userSettingsProvider;
             _benchmarkResultsProvider = benchmarkResultsProvider;
@@ -36,14 +36,23 @@ namespace GolemUI.ViewModel
             _statusProvider = statusProvider;
             _notificationService = notificationService;
             _taskProfitEstimator = taskProfitEstimator;
+            _schedulingProvider = schedulingProvider;
 
             _paymentService.PropertyChanged += OnPaymentServiceChanged;
             _providerConfig.PropertyChanged += OnProviderConfigChanged;
             _statusProvider.PropertyChanged += OnActivityStatusChanged;
             _processController.PropertyChanged += OnProcessControllerChanged;
+            _schedulingProvider.PropertyChanged += OnSchedulingProviderChanged;
 
             _benchmarkService.PropertyChanged += _benchmarkService_PropertyChanged;
             _taskProfitEstimator.PropertyChanged += _taskProfitEstimator_PropertyChanged;
+        }
+
+        private void OnSchedulingProviderChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (_schedulingProvider.isMiningScheduled == false) return;
+            if (_schedulingProvider.isItTimeForMining)
+                Start();
         }
 
         public string PolygonLink => "https://polygonscan.com/token/0x0b220b82f3ea3b7f6d9a1d8ab58930c064a2b5bf?a=" + _paymentService.Address;
@@ -665,5 +674,6 @@ namespace GolemUI.ViewModel
         private readonly IUserSettingsProvider _userSettingsProvider;
         private readonly INotificationService _notificationService;
         private readonly ITaskProfitEstimator _taskProfitEstimator;
+        private readonly ISchedulingProvider _schedulingProvider;
     }
 }
