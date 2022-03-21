@@ -4,13 +4,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.31424.327
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThorgApp", "ThorgApp\ThorgApp.csproj", "{F03FF034-8A27-457B-A8EA-A36B33689EBD}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A5245029-6334-40A8-BA6C-54C63AEC612C}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
+	ProjectSection(ProjectDependencies) = postProject
+		{35F25964-BE3E-43D1-A1FE-36904C5EF9E3} = {35F25964-BE3E-43D1-A1FE-36904C5EF9E3}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThorgLib", "ThorgLib\ThorgLib.csproj", "{35F25964-BE3E-43D1-A1FE-36904C5EF9E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThorgTests", "ThorgTests\ThorgTests.csproj", "{9B286B2B-9949-469D-911D-56AC456C5B4A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +36,14 @@ Global
 		{35F25964-BE3E-43D1-A1FE-36904C5EF9E3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{35F25964-BE3E-43D1-A1FE-36904C5EF9E3}.Release|x64.ActiveCfg = Release|Any CPU
 		{35F25964-BE3E-43D1-A1FE-36904C5EF9E3}.Release|x64.Build.0 = Release|Any CPU
+		{9B286B2B-9949-469D-911D-56AC456C5B4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B286B2B-9949-469D-911D-56AC456C5B4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B286B2B-9949-469D-911D-56AC456C5B4A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9B286B2B-9949-469D-911D-56AC456C5B4A}.Debug|x64.Build.0 = Debug|Any CPU
+		{9B286B2B-9949-469D-911D-56AC456C5B4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B286B2B-9949-469D-911D-56AC456C5B4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B286B2B-9949-469D-911D-56AC456C5B4A}.Release|x64.ActiveCfg = Release|Any CPU
+		{9B286B2B-9949-469D-911D-56AC456C5B4A}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
