@@ -112,7 +112,7 @@ namespace GolemUI.Model
                 NotifyChanged("UseHourScheduling");
             }
         }
-        
+
         private TimeSpan _workHourBegin;
         public TimeSpan WorkHourBegin
         {
