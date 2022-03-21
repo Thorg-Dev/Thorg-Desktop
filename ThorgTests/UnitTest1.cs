@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using GolemUI.Utils;
 
 namespace ThorgTests
 {
@@ -9,6 +10,8 @@ namespace ThorgTests
         [TestMethod]
         public void TestMethod1()
         {
+            Assert.AreEqual(MathUtils.RoundToInt(1.2), 2.0);
+
         }
     }
 }

@@ -53,6 +53,12 @@
       <Version>2.1.2</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ThorgLib\ThorgLib.csproj">
+      <Project>{35f25964-be3e-43d1-a1fe-36904c5ef9e3}</Project>
+      <Name>ThorgLib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

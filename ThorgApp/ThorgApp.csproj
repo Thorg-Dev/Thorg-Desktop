@@ -290,8 +290,10 @@
     <Compile Include="UI\UsageDescription.xaml.cs">
       <DependentUpon>UsageDescription.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils\ChildProcessManager.cs" />
     <Compile Include="Utils\PathUtil.cs" />
     <Compile Include="Utils\PriceProviderExtension.cs" />
+    <Compile Include="Utils\ProcessExtension.cs" />
     <Compile Include="Validators\NonEmptyStringValidator.cs" />
     <Compile Include="Validators\TransferAmountValidator.cs" />
     <Compile Include="Validators\NodeNameValidator.cs" />
@@ -987,6 +989,12 @@
     <PackageReference Include="System.ValueTuple">
       <Version>4.5.0</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ThorgLib\ThorgLib.csproj">
+      <Project>{35f25964-be3e-43d1-a1fe-36904c5ef9e3}</Project>
+      <Name>ThorgLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
