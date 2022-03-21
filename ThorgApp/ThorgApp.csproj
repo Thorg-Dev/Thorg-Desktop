@@ -164,7 +164,6 @@
     <Compile Include="UI\UserControls\PngSequence.xaml.cs">
       <DependentUpon>PngSequence.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utils\ChildProcessManager.cs" />
     <Compile Include="Miners\Phoenix\PhoenixParser.cs" />
     <Compile Include="Miners\MinerBenchmark.cs" />
     <Compile Include="Command\GpuInfo.cs" />
@@ -291,17 +290,10 @@
     <Compile Include="UI\UsageDescription.xaml.cs">
       <DependentUpon>UsageDescription.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utils\DateTimeUtils.cs" />
-    <Compile Include="Utils\LookupCache.cs" />
-    <Compile Include="Utils\MathUtils.cs" />
-    <Compile Include="Utils\ObservableListExtensions.cs" />
     <Compile Include="Utils\PathUtil.cs" />
     <Compile Include="Utils\PriceProviderExtension.cs" />
-    <Compile Include="Utils\ProcessExtension.cs" />
-    <Compile Include="Utils\StringRollingBuilder.cs" />
     <Compile Include="Validators\NonEmptyStringValidator.cs" />
     <Compile Include="Validators\TransferAmountValidator.cs" />
-    <Compile Include="Utils\VersionUtil.cs" />
     <Compile Include="Validators\NodeNameValidator.cs" />
     <Compile Include="Validators\EthAddrValidator.cs" />
     <Compile Include="ViewModel\CustomControls\NotificationBar\NotificationBarNotification.cs" />

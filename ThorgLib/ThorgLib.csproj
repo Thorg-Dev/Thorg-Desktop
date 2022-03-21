@@ -110,6 +110,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Utils\ChildProcessManager.cs" />
+    <Compile Include="Utils\DateTimeUtils.cs" />
+    <Compile Include="Utils\LookupCache.cs" />
+    <Compile Include="Utils\MathUtils.cs" />
+    <Compile Include="Utils\ObservableListExtensions.cs" />
+    <Compile Include="Utils\ProcessExtension.cs" />
+    <Compile Include="Utils\StringRollingBuilder.cs" />
+    <Compile Include="Utils\VersionUtil.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
