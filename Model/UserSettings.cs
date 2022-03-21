@@ -99,6 +99,49 @@ namespace GolemUI.Model
             }
         }
 
+        private bool _useHourScheduling = false;
+        public bool UseHourScheduling
+        {
+            get
+            {
+                return _useHourScheduling;
+            }
+            set
+            {
+                _useHourScheduling = value;
+                NotifyChanged("UseHourScheduling");
+            }
+        }
+        
+        private TimeSpan _workHourBegin;
+        public TimeSpan WorkHourBegin
+        {
+            get
+            {
+                return _workHourBegin;
+            }
+            set
+            {
+                _workHourBegin = value;
+                NotifyChanged("WorkHourBegin");
+            }
+        }
+
+        private TimeSpan _workHourEnd;
+        public TimeSpan WorkHourEnd
+        {
+            get
+            {
+                return _workHourEnd;
+            }
+            set
+            {
+                _workHourEnd = value;
+                NotifyChanged("WorkHourEnd");
+            }
+        }
+
+
         public bool EnableWASMUnit { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;

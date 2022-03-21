@@ -82,6 +82,7 @@ namespace GolemUI
             services.AddSingleton<Interfaces.IEstimatedProfitProvider, Src.EstimatedEarningsProvider>();
             services.AddSingleton<Interfaces.ITaskProfitEstimator, Src.TaskProfitEstimator>();
             services.AddSingleton<Interfaces.IUserFeedbackService, Src.SentryUserFeedbackService>();
+            services.AddSingleton<Interfaces.ISchedulingProvider, Src.SchedulingProvider>();
 
             services.AddSingleton(typeof(Interfaces.IProcessController), typeof(GolemUI.ProcessController));
             services.AddSingleton(typeof(Command.YagnaSrv));
