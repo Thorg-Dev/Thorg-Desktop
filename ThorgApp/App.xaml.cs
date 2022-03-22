@@ -89,7 +89,7 @@ namespace GolemUI
             services.AddSingleton(typeof(Command.Provider));
             services.AddSingleton(cfg => new Src.SingleInstanceLock());
 
-            services.AddSingleton(GolemUI.Properties.Settings.Default.TestNet ? Network.Mumbai : Network.Polygon);
+            services.AddSingleton(GolemUI.Properties.Settings.Default.TestNet ? Network.Rinkeby : Network.Polygon);
             services.AddSingleton<Interfaces.IPaymentService, Src.PaymentService>();
             services.AddSingleton<Interfaces.IProviderConfig, Src.ProviderConfigService>();
             services.AddSingleton<Interfaces.IStatusProvider, Src.YaSSEStatusProvider>();
