@@ -17,12 +17,6 @@
     <Setting Name="BenchmarkResultsVersion" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">12</Value>
     </Setting>
-    <Setting Name="GolemFactoryPath" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">GolemFactory</Value>
-    </Setting>
-    <Setting Name="SettingsSubfolder" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">ThorgMiner</Value>
-    </Setting>
     <Setting Name="DefaultProxy" Type="System.String" Scope="Application">
       <Value Profile="(Default)">n1.mining-proxy.imapp.pl:8069</Value>
     </Setting>

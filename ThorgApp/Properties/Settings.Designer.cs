@@ -70,24 +70,6 @@ namespace GolemUI.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("GolemFactory")]
-        public string GolemFactoryPath {
-            get {
-                return ((string)(this["GolemFactoryPath"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ThorgMiner")]
-        public string SettingsSubfolder {
-            get {
-                return ((string)(this["SettingsSubfolder"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("n1.mining-proxy.imapp.pl:8069")]
         public string DefaultProxy {
             get {
