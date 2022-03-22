@@ -164,11 +164,11 @@ namespace GolemUI.Src
                         { "invalid-share", 0m },
                         { "hash-rate", 0m }
                     }), out _args, out _info);
-                    if (isGpuCapable)
+/*                    if (isGpuCapable)
                     {
                         _provider.ActivatePreset("hminer");
                         changedProperties.Add("IsMiningActive");
-                    }
+                    }*/
                 }
                 else
                 {
@@ -195,11 +195,11 @@ namespace GolemUI.Src
                         { "invalid-share", 0m },
                         { "hash-rate", 0m }
                     }), out _args, out _info);
-                    if (isGpuCapable)
+            /*        if (isGpuCapable)
                     {
                         _provider.ActivatePreset("gminer");
                         changedProperties.Add("IsMiningActive");
-                    }
+                    }*/
                 }
                 else
                 {
@@ -213,18 +213,20 @@ namespace GolemUI.Src
                     });
                 }
 
-
-                if (presets.Contains("gminer") || presets.Contains("hminer"))
+                if (isGpuCapable && IsMiningActive)
                 {
-                    if (isLowMemoryMode)
+                    if (presets.Contains("gminer") || presets.Contains("hminer"))
                     {
-                        _provider.ActivatePreset("hminer");
-                        _provider.DeactivatePreset("gminer");
-                    }
-                    else
-                    {
-                        _provider.DeactivatePreset("hminer");
-                        _provider.ActivatePreset("gminer");
+                        if (isLowMemoryMode)
+                        {
+                            _provider.ActivatePreset("hminer");
+                            _provider.DeactivatePreset("gminer");
+                        }
+                        else
+                        {
+                            _provider.DeactivatePreset("hminer");
+                            _provider.ActivatePreset("gminer");
+                        }
                     }
                 }
 

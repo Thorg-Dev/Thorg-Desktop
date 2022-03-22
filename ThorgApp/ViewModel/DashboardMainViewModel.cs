@@ -112,12 +112,12 @@ namespace GolemUI.ViewModel
         }
         bool AntiVirusCheckActive { get; set; } = false;
         private bool MiningWasAlreadySuccessfull = false;
-        public bool IsCpuMiningEnabledByNetwork => false;
+        public bool IsCpuMiningEnabledByNetwork => true;
         public bool IsAnyGpuEnabled => _benchmarkService.IsMiningPossibleWithCurrentSettings;
         public double GpuOpacity => _benchmarkService.IsMiningPossibleWithCurrentSettings ? 1.0 : 0.2f;
         public double CpuOpacity => IsCpuMiningEnabledByNetwork ? 1.0 : 0.2f;
 
-        public bool IsMiningReadyToRun => !Process.IsStarting && !_benchmarkService.IsRunning && IsGpuEnabled && IsAnyGpuEnabled && !AntiVirusCheckActive;
+        public bool IsMiningReadyToRun => !Process.IsStarting && !_benchmarkService.IsRunning && ((IsGpuEnabled && IsAnyGpuEnabled) || IsCpuEnabled) && !AntiVirusCheckActive;
         public bool IsBenchmarkNotRunning => !_benchmarkService.IsRunning;
         public bool ShouldGpuSwitchBeEnabled => IsBenchmarkNotRunning && IsAnyGpuEnabled;
         public string StartButtonExplanation
@@ -134,12 +134,13 @@ namespace GolemUI.ViewModel
                     return "Can't start mining while benchmark is running.";
                 }
 
-                if (!_providerConfig.IsMiningActive)
+
+                if (!_providerConfig.IsMiningActive && !_providerConfig.IsCpuActive)
                 {
-                    return "Can't start mining with GPU support disabled.";
+                    return "Can't start mining with CPU and GPU support disabled.";
                 }
 
-                if (!IsAnyGpuEnabled)
+                if (!IsAnyGpuEnabled && !_providerConfig.IsCpuActive)
                 {
                     return "At least one GPU card with mining capability must be enabled by user " +
                            "(Settings). You can rerun benchmark to determine gpu capabilities again.";
