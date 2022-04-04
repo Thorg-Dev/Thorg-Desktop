@@ -260,5 +260,14 @@ Most exchanges do not support L2 payments like Polygon that Thorg uses. Please c
                 return ((string)(this["dialog_wallet_message"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://polygon-rpc.com/")]
+        public string RpcUrl {
+            get {
+                return ((string)(this["RpcUrl"]));
+            }
+        }
     }
 }
