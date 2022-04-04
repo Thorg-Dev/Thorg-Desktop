@@ -30,6 +30,8 @@ namespace GolemUI.Interfaces
 
         Task<string> ExitTo(string driver, decimal amount, string destinationAddress, decimal? txFee);
 
+        Task<string> RequestGaslessTransferTo(string driver, decimal amount, string destinationAddress);
+
         Task<string> TransferTo(string driver, decimal amount, string destinationAddress, decimal? txFee);
 
     }

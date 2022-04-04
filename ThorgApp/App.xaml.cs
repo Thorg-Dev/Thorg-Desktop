@@ -15,6 +15,7 @@ using GolemUI.Miners;
 using GolemUI.Miners.Phoenix;
 using GolemUI.Miners.TRex;
 using GolemUI.Src;
+using GolemUI.Src.EIP712;
 using GolemUI.UI;
 using GolemUI.UI.CustomControls;
 using GolemUI.Utils;
@@ -90,6 +91,9 @@ namespace GolemUI
             services.AddSingleton(cfg => new Src.SingleInstanceLock());
 
             services.AddSingleton(GolemUI.Properties.Settings.Default.TestNet ? Network.Mumbai : Network.Polygon);
+
+            services.AddSingleton(new GasslessForwarderConfig(GolemUI.Properties.Settings.Default.RpcUrl, GolemUI.Properties.Settings.Default.TestNet ? Network.Mumbai : Network.Polygon, "http://3.123.230.70:8007/api/forward/transfer"));
+
             services.AddSingleton<Interfaces.IPaymentService, Src.PaymentService>();
             services.AddSingleton<Interfaces.IProviderConfig, Src.ProviderConfigService>();
             services.AddSingleton<Interfaces.IStatusProvider, Src.YaSSEStatusProvider>();
@@ -106,6 +110,8 @@ namespace GolemUI
             services.AddTransient(typeof(ViewModel.CustomControls.NotificationBarViewModel));
             services.AddTransient(typeof(ViewModel.StatisticsViewModel));
             services.AddTransient(typeof(ViewModel.TRexViewModel));
+
+            services.AddTransient(typeof(GasslessForwarderService));
 
             services.AddTransient(typeof(DashboardMain));
             services.AddTransient(typeof(NotificationBar));
@@ -125,6 +131,7 @@ namespace GolemUI
 
             services.AddSingleton<Command.GSB.IGsbEndpointFactory, Src.GsbEndpointFactory>();
             services.AddTransient(typeof(Command.GSB.Payment));
+            services.AddTransient(typeof(Command.GSB.Identity));
 
             services.AddSingleton(typeof(TRexMiner));
             services.AddSingleton(typeof(PhoenixMiner));

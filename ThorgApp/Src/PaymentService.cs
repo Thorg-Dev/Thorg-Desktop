@@ -12,6 +12,11 @@ using System.Windows.Threading;
 using GolemUI.Command.GSB;
 using Microsoft.Extensions.Logging;
 using System.Net.Http;
+using Org.BouncyCastle.Crypto.Digests;
+using GolemUI.Src.EIP712;
+using Nethereum.Web3;
+using System.Windows.Controls;
+using Nethereum.Hex.HexConvertors.Extensions;
 
 namespace GolemUI.Src
 {
@@ -26,13 +31,19 @@ namespace GolemUI.Src
         private IProcessController _processController;
         private DispatcherTimer _timer;
         private ILogger<PaymentService> _logger;
-
+        private readonly Command.GSB.Identity _gsbId;
+        private readonly GasslessForwarderService _gasslessForwarder;
         public DateTime? LastSuccessfullRefresh { get; private set; } = null;
 
         public event PropertyChangedEventHandler? PropertyChanged;
         private bool _shouldCheckForInternalWallet = true;
 
-        public PaymentService(Network network, Command.YagnaSrv srv, IProcessController processController, IProviderConfig providerConfig, Command.GSB.Payment gsbPayment, ILogger<PaymentService> logger)
+        public PaymentService(Network network,
+            Command.YagnaSrv srv, IProcessController processController, IProviderConfig providerConfig,
+            Command.GSB.Payment gsbPayment,
+            Command.GSB.Identity gsbId,
+            GasslessForwarderService golemContract,
+            ILogger<PaymentService> logger)
         {
             _logger = logger;
             _network = network;
@@ -40,6 +51,28 @@ namespace GolemUI.Src
             _processController = processController;
             _providerConfig = providerConfig;
             _gsbPayment = gsbPayment;
+            _gasslessForwarder = golemContract;
+            _gsbId = gsbId;
+            Task.Run(async () =>
+            {
+                await Task.Delay(5000);
+                var id = await gsbId.GetDefaultIdentity();
+                _logger.LogDebug("default id {0}", id);
+                var digest = new KeccakDigest(256);
+                var output = new byte[digest.GetDigestSize()];
+                var b = UTF8Encoding.UTF8.GetBytes("ala ma kota");
+                digest.BlockUpdate(b, 0, b.Length);
+                digest.DoFinal(output, 0);
+                var msg = await gsbId.SignBy(id.NodeId, output);
+                {
+                    var v = msg[0];
+                    var r = msg.AsSpan(1, 32).ToArray();
+                    var s = msg.AsSpan(33, 32).ToArray();
+                    logger.LogWarning("v={},r={}, s={} ", v, r, s);
+                }
+
+            });
+
 
             _walletAddress = _providerConfig.Config?.Account;
             _providerConfig.PropertyChanged += this.OnProviderConfigChange;
@@ -243,11 +276,49 @@ namespace GolemUI.Src
             return txUrl;
         }
 
+        public async Task<string> RequestGaslessTransferTo(string driver, decimal amount, string destinationAddress)
+        {
+            if (driver != PaymentDriver.ERC20.Id)
+                throw new ArgumentException($"PaymentDriver {driver} is not supported");
+
+            var amountInWei = Web3.Convert.ToWei(amount);
+            var request = await _gasslessForwarder.GetEip712EncodedTransferRequest(_network.Id, _buildInAdress, destinationAddress, amountInWei);
+
+            var id = await _gsbId.GetDefaultIdentity();
+
+            var msg = await _gsbId.SignBy(id.NodeId, request.Message);
+            {
+                var v = msg[0];
+                if (v == 0) v = (byte)27;
+                if (v == 1) v = (byte)28;
+                var r = msg.AsSpan(1, 32).ToArray();
+                var s = msg.AsSpan(33, 32).ToArray();
+
+                request.R = "0x" + r.ToHex();
+                request.S = "0x" + s.ToHex();
+                request.V = "0x" + new byte[] { v }.ToHex();
+                //Console.WriteLine($"R = {request.R}");
+                //Console.WriteLine($"S = {request.S}");
+                //Console.WriteLine($"V = {request.V}");
+            }
+            //Console.WriteLine("after signing = " + msg.ToHex());
+            request.SignedMessage = msg;
+            request.SenderAddress = _buildInAdress;
+
+
+
+            string txHash = await _gasslessForwarder.SendRequest(request);
+
+            //Console.WriteLine("signed msg = " + msg.ToHex() + " , "/* + success.ToString()*/);
+
+            return txHash;
+        }
+
         public async Task<string> TransferTo(string driver, decimal amount, string destinationAddress, decimal? txFee)
         {
             if (_buildInAdress == null)
             {
-                throw new InvalidOperationException("intenal wallet not configured");
+                throw new InvalidOperationException("internal wallet not configured");
             }
             string txUrl = await _gsbPayment.TransferTo(driver, _buildInAdress, _network.Id, destinationAddress, amount, txFee);
             return txUrl;

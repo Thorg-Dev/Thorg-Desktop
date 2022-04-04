@@ -97,6 +97,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Command\GSB\Identity.cs" />
     <Compile Include="DesignViewModel\DesignTRexViewModel.cs" />
     <Compile Include="Miners\BenchmarkGpuStatus.cs" />
     <Compile Include="Miners\BenchmarkLiveStatus.cs" />
@@ -130,6 +131,13 @@
     <Compile Include="SchedulingService.cs" />
     <Compile Include="Src\AppNotificationService\NotificationsMonitor.cs" />
     <Compile Include="Src\AppNotificationService\SimpleNotificationObject.cs" />
+    <Compile Include="Src\EIP712\Eip712TransactionSignerSaltValue.cs" />
+    <Compile Include="Src\EIP712\GasslessForwarderService.cs" />
+    <Compile Include="Src\EIP712\GolemContract.cs" />
+    <Compile Include="Src\EIP712\EIP712MetaTransactionPayload.cs" />
+    <Compile Include="Src\EIP712\GolemContractAddress.cs" />
+    <Compile Include="Src\EIP712\StringConverters.cs" />
+    <Compile Include="Src\EIP712\EIP712TransactionSignerTypedData.cs" />
     <Compile Include="Src\EstimatedEarningsProvider.cs" />
     <Compile Include="Src\GsbEndpointFactory.cs" />
     <Compile Include="Src\GolemUIException.cs" />
@@ -164,6 +172,7 @@
     <Compile Include="UI\UserControls\PngSequence.xaml.cs">
       <DependentUpon>PngSequence.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils\ChildProcessManager.cs" />
     <Compile Include="Miners\Phoenix\PhoenixParser.cs" />
     <Compile Include="Miners\MinerBenchmark.cs" />
     <Compile Include="Command\GpuInfo.cs" />
@@ -290,12 +299,17 @@
     <Compile Include="UI\UsageDescription.xaml.cs">
       <DependentUpon>UsageDescription.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utils\ChildProcessManager.cs" />
+    <Compile Include="Utils\DateTimeUtils.cs" />
+    <Compile Include="Utils\LookupCache.cs" />
+    <Compile Include="Utils\MathUtils.cs" />
+    <Compile Include="Utils\ObservableListExtensions.cs" />
     <Compile Include="Utils\PathUtil.cs" />
     <Compile Include="Utils\PriceProviderExtension.cs" />
     <Compile Include="Utils\ProcessExtension.cs" />
+    <Compile Include="Utils\StringRollingBuilder.cs" />
     <Compile Include="Validators\NonEmptyStringValidator.cs" />
     <Compile Include="Validators\TransferAmountValidator.cs" />
+    <Compile Include="Utils\VersionUtil.cs" />
     <Compile Include="Validators\NodeNameValidator.cs" />
     <Compile Include="Validators\EthAddrValidator.cs" />
     <Compile Include="ViewModel\CustomControls\NotificationBar\NotificationBarNotification.cs" />
@@ -897,6 +911,9 @@
       <Version>3.8.0</Version>
     </PackageReference>
     <PackageReference Include="Nethereum.Signer">
+      <Version>3.8.0</Version>
+    </PackageReference>
+    <PackageReference Include="Nethereum.Signer.EIP712">
       <Version>3.8.0</Version>
     </PackageReference>
     <PackageReference Include="Nethereum.Util">

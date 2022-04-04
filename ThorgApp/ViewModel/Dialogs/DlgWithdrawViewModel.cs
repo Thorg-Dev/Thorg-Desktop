@@ -21,6 +21,9 @@ namespace GolemUI.ViewModel.Dialogs
 
         public string Description { get; }
 
+
+
+
         public OutputNetwork(string driver, string name, string description)
         {
             Driver = driver;
@@ -45,6 +48,17 @@ namespace GolemUI.ViewModel.Dialogs
         }
 
         public DlgWithdrawStatus TransactionStatus => DlgWithdrawStatus.None;
+        public string _txHash = "";
+        public string TxHash
+        {
+            get => _txHash ?? "";
+            set
+            {
+                _txHash = value;
+                OnPropertyChanged(nameof(TxHash));
+            }
+        }
+
         string? _withdrawAddress;
         public string WithdrawAddress
         {
@@ -133,6 +147,13 @@ namespace GolemUI.ViewModel.Dialogs
             System.Diagnostics.Process.Start(PolygonScanUrl);
         }
 
+        public async void TestGassless()
+        {
+            TxHash = await _paymentService.RequestGaslessTransferTo(PaymentDriver.ERC20.Id, 0.0000123m, "0x39b04dbC4B4302e9c7F84D275755CF042898CEae");
+
+            Console.WriteLine("tx hash resolved: " + TxHash);
+        }
+
         public async Task<bool> SendTx()
         {
             if (_amount is decimal amount && _withdrawAddress is string withdrawAddress)
@@ -140,15 +161,39 @@ namespace GolemUI.ViewModel.Dialogs
                 _lock();
                 try
                 {
-                    try
+                    bool isGasless = true;
+                    if (isGasless)
                     {
-                        var url = await _paymentService.TransferTo(PaymentDriver.ERC20.Id, amount, withdrawAddress, null);
-                        return true;
+                        try
+                        {
+                            if (_amount != MaxAmount)
+                            {
+                                var url = await _paymentService.RequestGaslessTransferTo(PaymentDriver.ERC20.Id, amount, withdrawAddress);
+                                return false;
+                            }
+                            else
+                            {
+                                return true;
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            this.WithdrawTextStatus = e.Message;
+                            return false;
+                        }
                     }
-                    catch (GsbServiceException e)
+                    else
                     {
-                        this.WithdrawTextStatus = e.Message;
-                        return false;
+                        try
+                        {
+                            var url = await _paymentService.TransferTo(PaymentDriver.ERC20.Id, amount, withdrawAddress, null);
+                            return true;
+                        }
+                        catch (GsbServiceException e)
+                        {
+                            this.WithdrawTextStatus = e.Message;
+                            return false;
+                        }
                     }
 
                 }
