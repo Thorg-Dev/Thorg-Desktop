@@ -1,0 +1,168 @@
+﻿<Window x:Class="GolemUI.UI.Dialogs.DlgEditAddress"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GolemUI.UI"
+        xmlns:lm="clr-namespace:GolemUI.Model"
+        xmlns:lc="clr-namespace:GolemUI.Validators"        
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterOwner"
+        Title="Edit Wallet Address" Width="904" Height="453" VerticalAlignment="Center" ResizeMode="NoResize"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True"
+        xmlns:dvm="clr-namespace:GolemUI.DesignViewModel.Dialogs"
+        d:DataContext ="{d:DesignInstance {x:Type dvm:DlgEditAddressViewModel}, IsDesignTimeCreatable=True}"
+        >
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/UI/Themes/Defaults.xaml"/>
+                <ResourceDictionary Source="/UI/Themes/Borders/PageBackground.xaml"/>
+                <ResourceDictionary Source="/UI/Themes/WindowControls.xaml"/>
+                <ResourceDictionary Source="/UI/Themes/Buttons/GradientButton.xaml"/>
+                <ResourceDictionary Source="/UI/Themes/Buttons/CancelButton.xaml"/>
+                <ResourceDictionary Source="/UI/Themes/TextBox/TextBoxInError.xaml"/>
+                <ResourceDictionary Source="/UI/Themes/Validation/ValidationTemplate.xaml"/>
+                <ResourceDictionary Source="/UI/Themes/CheckBox/GpuCheckBox.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Border BorderBrush="#999"  BorderThickness="1" CornerRadius="12" Background="{DynamicResource SetupWindow.Background}" >
+        <Grid>
+            <DockPanel x:Name="TitleBar" VerticalAlignment="Top">
+                    <Button x:Name="CloseButton" Content="Close" DockPanel.Dock="Right" Click="BtnClose_Click" Style="{DynamicResource CloseWindowButton}" Margin="0,0,8,0"/>
+
+                    <TextBlock HorizontalAlignment="Center"></TextBlock>
+                </DockPanel>
+         
+            <TabControl BorderThickness="0"  x:Name="tabControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent" Margin="0,30,0,0" >
+                <TabControl.ItemContainerStyle>
+                    <Style TargetType="{x:Type TabItem}">
+                        <Setter Property="Visibility" Value="Hidden"></Setter>
+
+                    </Style>
+
+                </TabControl.ItemContainerStyle>
+                <TabItem Header="TabItem" Background="Transparent">
+                    <Grid Margin="0,40,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="400" />
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                    <Canvas Width="255" Height="255" VerticalAlignment="Top" Margin="0,0">
+                        <Ellipse Width="255" Height="255" Fill="#120539" Opacity="0.6" Stroke="#fff"/>
+                        <Image Source="/UI/Icons/DefaultStyle/png/Dialogs/wallet.png"  Width="185" Height="185" Canvas.Left="35" Canvas.Top="35"/>
+                    </Canvas>
+                        <WrapPanel Grid.Column="1" Height="500">
+                            <TextBlock FontFamily="Segoe UI" FontSize="23" FontWeight="Bold" Margin="0, 0, 0 15">Don't use an exchange address</TextBlock>
+                            <TextBlock FontFamily="Segoe UI" FontSize="14"  Margin="0, 0, 90, 15">Thorg is most suited for addresses that the user has custody of, compared to some other individual than the Thorg user (such as a centralized exchange) having custody of the address.</TextBlock>
+                            <TextBlock FontFamily="Segoe UI" FontSize="14"  Margin="0, 0, 90, 15">Most exchanges do not support L2 payments like Polygon that Thorg uses. Please change your wallet address to one that you're in control of, such as MetaMask.</TextBlock>
+
+
+                        </WrapPanel>
+                        <Button Grid.Column="1" FontSize="18" Margin="0,0,90,90" HorizontalAlignment="Stretch" VerticalAlignment="Bottom"  Height="45"  Click="BtnGotIt_Click" Name="BtnGotIt" Content="Got it!" Style="{StaticResource GradientButtonStyle}" />
+                    </Grid>
+                </TabItem>
+                <TabItem Header="TabItem" Background="Transparent">
+
+                    <Grid>
+                        <StackPanel Orientation="Vertical" Margin="0">
+                
+                <StackPanel Margin="50,30">
+                    <Label Content="Change the wallet address" FontSize="14" Margin="0,0,0,60"/>
+
+                    <Border BorderThickness="0,0,0,2"   Margin="0, 0,0,0" Height="26">
+
+                        <TextBox x:Name="NewAddressTextBox" FontSize="16" Style="{StaticResource TextBoxInError}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" BorderThickness="0" BorderBrush="Transparent" VerticalAlignment="Top" Background="Transparent" Foreground="#eee" CaretBrush="#fff" Margin="0, 0,0,0"  Padding="0,0,0,5">
+                            <TextBox.Text>
+                                <Binding Path="NewAddress" UpdateSourceTrigger="PropertyChanged" Delay="100">
+                                    <Binding.ValidationRules>
+                                        <lc:EthAddrValidator ShouldCheckForChecksum="False" xmlns:lc="clr-namespace:GolemUI.Validators"  ValidatesOnTargetUpdated="True"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+
+                        <Border.Style>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="BorderBrush" Value="#45405D" />
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding ElementName=NewAddressTextBox, Path=(Validation.HasError)}" Value="true" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="BorderBrush" Value="#FC476E" />
+                                    </MultiDataTrigger>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding ElementName=NewAddressTextBox, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding NodeNameHasChanged}" Value="true" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="BorderBrush" Value="#0FB2AB" />
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                    </Border>
+                    <Label Margin="2,6,0,0" Padding="0" Grid.Row="2" Foreground="#0FB2AB" >
+                        <Label.Style>
+                            <Style TargetType="{x:Type Label}">
+                                <Setter Property="Visibility" Value="Hidden" />
+
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding ElementName=NewAddressTextBox, Path=(Validation.HasError)}" Value="true" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Visibility" Value="Hidden" />
+                                    </MultiDataTrigger>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding ElementName=NewAddressTextBox, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding NodeNameHasChanged}" Value="true" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                        ✓ Address is valid
+                    </Label>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,20" Visibility="Collapsed">
+                        <CheckBox Style="{StaticResource CheckBoxGpu}" IsChecked="{Binding ShouldTransferFunds}" />
+                        <StackPanel Margin="10,0,0,0">
+                            <Label FontSize="12" FontWeight="Bold" Content="Transfer all tokens to the new address during the address change." Margin="0" Padding="0"/>
+                            <Label FontSize="10" Content="This way you will not loose your income. Remember that you will need small amount of ETH to cover transaction fees."  Margin="0" Padding="0"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                </StackPanel>
+            </StackPanel>
+            
+                <UniformGrid Columns="2" VerticalAlignment="Bottom"  HorizontalAlignment="Stretch" Margin="50,0,50,50" >
+                    <Button FontSize="18" IsCancel="True" Margin="0,0,0,0" HorizontalAlignment="Stretch"   Height="45"  Click="BtnCancel_Click" Name="BtnCancel" Style="{StaticResource CancelButtonStyle}" Content="Cancel" />
+                    <Button FontSize="18" Margin="0,0,0,0" HorizontalAlignment="Stretch"  Height="45"  Click="BtnOK_Click" Name="BtnOK" Content="Confirm" >
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource GradientButtonStyle}">
+                                <Setter Property="IsEnabled" Value="false" />
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding ElementName=NewAddressTextBox, Path=(Validation.HasError)}" Value="false" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="IsEnabled" Value="true" />
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </UniformGrid>
+                </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </Border>
+</Window>

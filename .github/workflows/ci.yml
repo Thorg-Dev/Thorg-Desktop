@@ -22,7 +22,7 @@ jobs:
     env:
       App_Packages_Directory: AppPackages
       SigningCertificate: GitHubActions.pfx
-      Solution_Path: GolemUI.sln
+      Solution_Path: ThorgDesktop.sln
       #Test_Project_Path: MyWpfApp.Tests\MyWpfApp.Tests.csproj
       Wpf_Project_Path: GolemUI.csproj
       Wap_Project_Directory: AppPackage
@@ -41,7 +41,7 @@ jobs:
         run: dotnet tool install -g dotnet-format
 
       - name: Check formating
-        run: dotnet-format --check GolemUI.sln
+        run: dotnet-format --check ThorgDesktop.sln
 
       - name: Setup MSBuild.exe
         uses: microsoft/setup-msbuild@v1.0.2
@@ -53,7 +53,7 @@ jobs:
         run: msbuild -t:restore /p:Platform=x64 /p:Configuration=Release
 
       - name: Build the Windows Application
-        run: msbuild GolemUI.csproj /p:Platform=AnyCPU /p:Configuration=Release
+        run: msbuild ThorgApp/ThorgApp.csproj /p:Platform=AnyCPU /p:Configuration=Release
         env:
           AppxBundle: Never
           BuildMode: SideloadOnly
