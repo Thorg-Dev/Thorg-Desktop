@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace GolemUI.Utils
 {
-    class PathUtil
+    public class PathUtil
     {
         public static string GetLocalPath()
         {
             string settingPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
-            string localFolder = Path.Combine(settingPath, GolemUI.Properties.Settings.Default.GolemFactoryPath, GolemUI.Properties.Settings.Default.SettingsSubfolder);
+            string localFolder = Path.Combine(settingPath, ThorgLib.Properties.Settings.Default.GolemFactoryPath, ThorgLib.Properties.Settings.Default.SettingsSubfolder);
 
             if (!Directory.Exists(localFolder))
             {

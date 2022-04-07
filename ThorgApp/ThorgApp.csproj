@@ -122,8 +122,6 @@
     <Compile Include="Interfaces\IUserFeedbackService.cs" />
     <Compile Include="Interfaces\IRemoteSettingsProvider.cs" />
     <Compile Include="Interfaces\ITaskProfitEstimator.cs" />
-    <Compile Include="Model\Coin.cs" />
-    <Compile Include="Model\Currency.cs" />
     <Compile Include="Model\RemoteSettings.cs" />
     <Compile Include="DesignViewModel\Dialogs\DlgConfirmAddressViewModel.cs" />
     <Compile Include="SchedulingProvider.cs" />
@@ -197,7 +195,6 @@
     <Compile Include="Interfaces\IEstimatedProfiProvider.cs" />
     <Compile Include="Interfaces\IHistoryDataProvider.cs" />
     <Compile Include="Interfaces\IPaymentService.cs" />
-    <Compile Include="Interfaces\IPriceProvider.cs" />
     <Compile Include="Interfaces\IProcessControler.cs" />
     <Compile Include="Interfaces\IProviderConfig.cs" />
     <Compile Include="Interfaces\IDialogInvoker.cs" />
@@ -290,10 +287,6 @@
     <Compile Include="UI\UsageDescription.xaml.cs">
       <DependentUpon>UsageDescription.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utils\ChildProcessManager.cs" />
-    <Compile Include="Utils\PathUtil.cs" />
-    <Compile Include="Utils\PriceProviderExtension.cs" />
-    <Compile Include="Utils\ProcessExtension.cs" />
     <Compile Include="Validators\NonEmptyStringValidator.cs" />
     <Compile Include="Validators\TransferAmountValidator.cs" />
     <Compile Include="Validators\NodeNameValidator.cs" />
@@ -995,6 +988,9 @@
       <Project>{35f25964-be3e-43d1-a1fe-36904c5ef9e3}</Project>
       <Name>ThorgLib</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utils\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
