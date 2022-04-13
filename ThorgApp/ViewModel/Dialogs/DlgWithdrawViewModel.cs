@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GolemUI.Command;
+using GolemUI.Src.EIP712;
 
 namespace GolemUI.ViewModel.Dialogs
 {
@@ -45,6 +46,13 @@ namespace GolemUI.ViewModel.Dialogs
 
             _paymentService = paymentService;
             _priceProvider = priceProvider;
+
+            // yagna public key (~1 GLM)
+            //WithdrawAddress = "0xFeaED3f817169C012D040F05C6c52bCE5740Fc37";
+
+            // forwarder addres (has ~0.2 matic gas)
+            WithdrawAddress = "0xd4EA255B238E214A9A0E5656eC36Fe27CD14adAC";
+            IsGaslessUsed = true;
         }
 
         public DlgWithdrawStatus TransactionStatus => DlgWithdrawStatus.None;
@@ -93,7 +101,8 @@ namespace GolemUI.ViewModel.Dialogs
         public decimal AvailableUSD => _priceProvider.CoinValue(AvailableGLM ?? 0m, Model.Coin.GLM);
 
 
-        public bool ShouldGaslessSwhitchBeEnabled => (AvailableGLM > 0 && AvailableGLM == Amount) || Amount == 66;
+        public bool ShouldGaslessSwhitchBeEnabled => AvailableGLM > 0 && AvailableGLM == Amount;
+        public bool IsGaslessUsed { get; set; }
 
         bool _shouldTransferAllTokensToL1 = true;
 
@@ -128,6 +137,11 @@ namespace GolemUI.ViewModel.Dialogs
             }
         }
 
+        private bool _useGasless()
+        {
+            return ShouldGaslessSwhitchBeEnabled && IsGaslessUsed;
+        }
+
         public async Task UpdateTxFee()
         {
             _lock();
@@ -135,7 +149,13 @@ namespace GolemUI.ViewModel.Dialogs
             {
                 if (_withdrawAddress != null)
                 {
-                    TxFee = await _paymentService.TransferFee(Amount, _withdrawAddress) * 1.1m;
+                    if (_useGasless())
+                    {
+                        TxFee = 0m;
+                    } else
+                    {
+                        TxFee = await _paymentService.TransferFee(Amount, _withdrawAddress) * 1.1m;
+                    }
                 }
             }
             finally
@@ -163,41 +183,30 @@ namespace GolemUI.ViewModel.Dialogs
                 _lock();
                 try
                 {
-                    bool isGasless = true;
-                    if (isGasless)
+                    try
                     {
-                        try
+                        if (_useGasless())
                         {
-                            if (_amount != MaxAmount)
-                            {
-                                var url = await _paymentService.RequestGaslessTransferTo(PaymentDriver.ERC20.Id, amount, withdrawAddress);
-                                return false;
-                            }
-                            else
-                            {
-                                return true;
-                            }
-                        }
-                        catch (Exception e)
+                            TxHash = await _paymentService.RequestGaslessTransferTo(PaymentDriver.ERC20.Id, amount, withdrawAddress);
+                        } else
                         {
-                            this.WithdrawTextStatus = e.Message;
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        try
-                        {
+                            // TODO: TxHash
                             var url = await _paymentService.TransferTo(PaymentDriver.ERC20.Id, amount, withdrawAddress, null);
-                            return true;
                         }
-                        catch (GsbServiceException e)
-                        {
-                            this.WithdrawTextStatus = e.Message;
-                            return false;
-                        }
-                    }
 
+                        // TODO: no unlock?
+                        return true;
+                    }
+                    catch (GsbServiceException e)
+                    {
+                        this.WithdrawTextStatus = e.Message;
+                        return false;
+                    }
+                    catch (GaslessForwarderException e)
+                    {
+                        this.WithdrawTextStatus = e.Message;
+                        return false;
+                    }                  
                 }
                 finally
                 {

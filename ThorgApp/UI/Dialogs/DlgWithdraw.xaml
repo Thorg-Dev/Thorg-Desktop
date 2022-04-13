@@ -95,11 +95,13 @@
                             </TextBox>
                             <TextBlock FontSize="12" Text="{Binding TransferTo.Description}"  Margin="0,8,0,0" Padding="0" TextWrapping="Wrap" MinHeight="40"/>
                             <ProgressBar IsIndeterminate="True" Height="15" Visibility="{Binding IsProcessing, Converter={StaticResource BoolToVisibleConverter}}"/>
-                            <Button FontSize="18"  Margin="0,0,0,0" HorizontalAlignment="Stretch"   Height="26"  Click="SendTestGasslees_Click" Style="{StaticResource GradientButtonStyle}" Content="SEND 0.0000123 GLM VIA GASSLESS FORWARDER" />
-                            <CheckBox Style="{DynamicResource CheckBoxSlider}" IsChecked="False" IsEnabled="{Binding ShouldGaslessSwhitchBeEnabled, Mode=OneWay}">
+                            <!--<Button FontSize="18"  Margin="0,0,0,0" HorizontalAlignment="Stretch"   Height="26"  Click="SendTestGasslees_Click" Style="{StaticResource GradientButtonStyle}" Content="SEND 0.0000123 GLM VIA GASSLESS FORWARDER" /> -->
+                            
+                            <Button Style="{StaticResource UnderlineButtonStyle}" VerticalAlignment="Center" Content="{Binding TxHash}" Click="txHashButton_Click" HorizontalAlignment="Center"/>
+                            <CheckBox Style="{DynamicResource CheckBoxSlider}" IsChecked="{Binding IsGaslessUsed, Mode=TwoWay}" IsEnabled="{Binding ShouldGaslessSwhitchBeEnabled, Mode=OneWay}">
                                 <Label Content="Use gasless"/>
                             </CheckBox>
-                            <Button Style="{StaticResource UnderlineButtonStyle}" VerticalAlignment="Center" Content="{Binding TxHash}" Click="txHashButton_Click" HorizontalAlignment="Center"/>
+                            <Label Visibility="{Binding ShouldGaslessSwhitchBeEnabled, Converter={StaticResource BoolToHiddenConverter}}">Only full widthrawals are supported</Label>
                         </StackPanel>
 
                         <UniformGrid Columns="2" VerticalAlignment="Bottom"  HorizontalAlignment="Stretch" Margin="79,30" Grid.Row="1">

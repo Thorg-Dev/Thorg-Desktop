@@ -42,6 +42,16 @@ namespace GolemUI.Src.EIP712
         public string? SenderAddress;
     }
 
+
+    class GaslessForwarderException: Exception
+    {
+        public GaslessForwarderException(string message, Exception? cause = null) : base(message, cause)
+        {
+        }
+    }
+    
+
+
     public class GasslessForwarderService
     {
         GasslessForwarderConfig _config;
@@ -70,35 +80,26 @@ namespace GolemUI.Src.EIP712
             HttpClient httpClient = new HttpClient();
             var payload = new { r = request.R, v = request.V, s = request.S, sender = request.SenderAddress, signedRequest = "0x" + request.SignedMessage.ToHex(), abiFunctionCall = "0x" + request.FunctionCallEncodedInAbi.ToHex() };
             var content = new StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json");
-            try
-            {
-                var result = await httpClient.PostAsync(_config.ForwarderUrl, content);
-                var resultBody = await result.Content.ReadAsStringAsync();
-                Console.WriteLine("SERVER : " + result.StatusCode + " : " + resultBody);
-                if (result.StatusCode == System.Net.HttpStatusCode.OK)
-                {
-                    try
-                    {
-                        dynamic data = JsonConvert.DeserializeObject<dynamic>(resultBody);
+            
+            var result = await httpClient.PostAsync(_config.ForwarderUrl, content);
+            var resultBody = await result.Content.ReadAsStringAsync();
+            Console.WriteLine("SERVER : " + result.StatusCode + " : " + resultBody);
 
-                        if (data["txhash"] != null)
-                        {
-                            return data.txhash.ToString();
-                        }
-                    }
-                    catch
+            dynamic data = JsonConvert.DeserializeObject<dynamic>(resultBody);
+            if (result.StatusCode == System.Net.HttpStatusCode.OK)
+            {   
+
+                    if (data["txhash"] != null)
                     {
-                        return null;
+                        return data.txhash.ToString();
+                    } else
+                    {
+                        throw new GaslessForwarderException("No txhash value from forwarder");
                     }
-                }
-            }
-            catch
+            } else
             {
-                return null;
+                throw new GaslessForwarderException(data["message"].ToString());
             }
-            return null;
         }
-
-
     }
 }
