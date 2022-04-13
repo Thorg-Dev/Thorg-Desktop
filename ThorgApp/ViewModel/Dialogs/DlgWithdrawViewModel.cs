@@ -83,6 +83,7 @@ namespace GolemUI.ViewModel.Dialogs
                 OnPropertyChanged(nameof(Amount));
                 OnPropertyChanged("IsValid");
                 OnPropertyChanged("AmountUSD");
+                OnPropertyChanged(nameof(ShouldGaslessSwhitchBeEnabled));
             }
         }
 
@@ -92,6 +93,7 @@ namespace GolemUI.ViewModel.Dialogs
         public decimal AvailableUSD => _priceProvider.CoinValue(AvailableGLM ?? 0m, Model.Coin.GLM);
 
 
+        public bool ShouldGaslessSwhitchBeEnabled => (AvailableGLM > 0 && AvailableGLM == Amount) || Amount == 66;
 
         bool _shouldTransferAllTokensToL1 = true;
 

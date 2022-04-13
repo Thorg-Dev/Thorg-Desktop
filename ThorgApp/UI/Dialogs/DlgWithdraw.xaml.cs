@@ -118,5 +118,10 @@ namespace GolemUI.UI.Dialogs
         {
             this.Model.TestGassless();
         }
+
+        private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

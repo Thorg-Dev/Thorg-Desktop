@@ -26,7 +26,7 @@ namespace GolemUI.Command.GSB
 
                 public string? Token { get; set; }
 
-                public DateTime? Since { get; set; }
+                public long? after_timestamp { get; set; }
 
                 public GetStatus(string address, string driver, string? network = null, string? token = null, DateTime? since = null)
                 {
@@ -34,7 +34,7 @@ namespace GolemUI.Command.GSB
                     Driver = driver ?? throw new ArgumentNullException(nameof(driver));
                     Network = network;
                     Token = token;
-                    Since = since;
+                    after_timestamp = ((DateTimeOffset)since).ToUnixTimeSeconds();
                 }
             }
 
