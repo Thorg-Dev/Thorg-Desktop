@@ -98,16 +98,19 @@
                             <!--<Button FontSize="18"  Margin="0,0,0,0" HorizontalAlignment="Stretch"   Height="26"  Click="SendTestGasslees_Click" Style="{StaticResource GradientButtonStyle}" Content="SEND 0.0000123 GLM VIA GASSLESS FORWARDER" /> -->
                             
                             <Button Style="{StaticResource UnderlineButtonStyle}" VerticalAlignment="Center" Content="{Binding TxHash}" Click="txHashButton_Click" HorizontalAlignment="Center"/>
-                            <CheckBox Style="{DynamicResource CheckBoxSlider}" IsChecked="{Binding IsGaslessUsed, Mode=TwoWay}" IsEnabled="{Binding ShouldGaslessSwhitchBeEnabled, Mode=OneWay}">
+
+                            <UniformGrid Columns="2" VerticalAlignment="Center"  HorizontalAlignment="Stretch"  Grid.Row="1">
+                                <Label Visibility="{Binding ShouldGaslessSwhitchBeEnabled, Converter={StaticResource BoolToHiddenConverter}}">Only full widthrawals are supported</Label>
+                                <CheckBox Margin="130,0,0,0" Style="{DynamicResource CheckBoxSlider}" IsChecked="{Binding IsGaslessUsed, Mode=TwoWay}" IsEnabled="{Binding ShouldGaslessSwhitchBeEnabled, Mode=OneWay}">
                                 <Label Content="Use gasless"/>
                             </CheckBox>
-                            <Label Visibility="{Binding ShouldGaslessSwhitchBeEnabled, Converter={StaticResource BoolToHiddenConverter}}">Only full widthrawals are supported</Label>
+                            </UniformGrid>
                         </StackPanel>
 
                         <UniformGrid Columns="2" VerticalAlignment="Bottom"  HorizontalAlignment="Stretch" Margin="79,30" Grid.Row="1">
                             <Button FontSize="18" IsCancel="True" Margin="0,0,0,0" HorizontalAlignment="Stretch"   Height="45"  Click="BtnCancelStep1_Click" Style="{StaticResource CancelButtonStyle}" Content="Cancel" />
                             <Button FontSize="18" Margin="0,0,0,0" HorizontalAlignment="Stretch"  Height="45" Click="BtnConfirmStep1_Click" Content="Confirm"
-                                    Visibility="{Binding IsProcessing, Converter={StaticResource BoolToHiddenConverter}}">
+                                    Visibility="{Binding IsProcessing, Converter={StaticResource BoolToCollapsedConverter}}">
                                 <Button.Style>
                                     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource GradientButtonStyle}">
                                         <Setter Property="IsEnabled" Value="false" />
@@ -168,8 +171,8 @@
                             <ProgressBar IsIndeterminate="True" Height="5" Visibility="{Binding Path=IsProcessing, Converter={StaticResource BoolToVisibleConverter}}"/>
                         </StackPanel>
                         <UniformGrid Columns="2" VerticalAlignment="Bottom"  HorizontalAlignment="Stretch" Margin="79,0,79,31" Grid.Row="1">
-                            <Button FontSize="18" IsCancel="True" Margin="0,0,0,0" HorizontalAlignment="Stretch"   Height="45"  Click="BtnCancelStep2_Click" x:Name="BtnCancelStep2" Style="{StaticResource CancelButtonStyle}" Content="Change amount" Visibility="{Binding IsProcessing, Converter={StaticResource BoolToHiddenConverter}}"/>
-                            <Button Style="{StaticResource GradientButtonStyle}" FontSize="18" Margin="0,0,0,0" HorizontalAlignment="Stretch"  Height="45"  Click="BtnConfirmStep2_Click" x:Name="BtnConfirmStep2" Content="Confirm" Visibility="{Binding IsProcessing, Converter={StaticResource BoolToHiddenConverter}}"/>
+                            <Button FontSize="18" IsCancel="True" Margin="0,0,0,0" HorizontalAlignment="Stretch"   Height="45"  Click="BtnCancelStep2_Click" x:Name="BtnCancelStep2" Style="{StaticResource CancelButtonStyle}" Content="Change amount" Visibility="{Binding IsProcessing, Converter={StaticResource BoolToCollapsedConverter}}"/>
+                            <Button Style="{StaticResource GradientButtonStyle}" FontSize="18" Margin="0,0,0,0" HorizontalAlignment="Stretch"  Height="45"  Click="BtnConfirmStep2_Click" x:Name="BtnConfirmStep2" Content="Confirm" Visibility="{Binding IsProcessing, Converter={StaticResource BoolToCollapsedConverter}}"/>
                         </UniformGrid>
                     </Grid>
                 </TabItem>
@@ -183,18 +186,17 @@
 
                             <Label Margin="0,20,0,0"  HorizontalAlignment="Center" Foreground="#99b" Padding="0">You can check the transaction on L1 and L2 explorers. If you are offboarding from L2</Label>
                             <Label HorizontalAlignment="Center" Foreground="#99b" Padding="0">keep in mind that those transactions tend to take some time.</Label>
-                            <Button  Style="{StaticResource UnderlineButtonStyle}" Content="CHECK ON ETHERSCAN" HorizontalAlignment="Center" FontSize="12" Margin="0,10,0,0" Background="Transparent" BorderBrush="Transparent" x:Name="BtnCheckOnEtherScan" Click="BtnCheckOnEtherScan_Click" Visibility="Collapsed"/>
+                            <Button  Style="{StaticResource UnderlineButtonStyle}" Content="CHECK ON ETHERSCAN" HorizontalAlignment="Center" FontSize="12" Margin="0,10,0,0" Background="Transparent" BorderBrush="Transparent" x:Name="BtnCheckOnEtherScan" Click="BtnCheckOnEtherScan_Click" Visibility="Visible"/>
                             <Button HorizontalAlignment="Center" FontSize="12" Background="Transparent" BorderBrush="Transparent" x:Name="BtnCheckOnZKsyncExplorer" Click="BtnCheckOnZKsyncExplorer_Click" >
-                                <Button.Content>CHECK ON POLYGON EXPLORER</Button.Content>
                                 <Button.Style>
-                                    <Style BasedOn="{StaticResource UnderlineButtonStyle}" TargetType="Button">
+                                    <Style BasedOn="{StaticResource UnderlineButtonStyle}" TargetType="{x:Type Button}">
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding PolygonScanUrl}" Value="{x:Null}">
-                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Setter Property="Visibility" Value="Visible"/>
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
-                                </Button.Style>
+                                </Button.Style> CHECK ON POLYGON EXPLORER
                             </Button>
                         </StackPanel>
                         <Button Style="{StaticResource GradientButtonStyle}" FontSize="18" Margin="0,0,0,30" VerticalAlignment="Bottom" Width="250" Height="45"  Click="BtnConfirmStep3_Click" Name="BtnConfirmStep3" Content="Confirm" />

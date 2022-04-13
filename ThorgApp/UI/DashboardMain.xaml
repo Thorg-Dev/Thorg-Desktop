@@ -79,7 +79,7 @@
 
 
 
-                <Button Style="{StaticResource GradientButtonStyle}" Click="btnStart_Click"  Margin="0,15,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="45" Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="3" IsEnabled="{Binding Path=IsMiningReadyToRun, Mode=OneWay}" Visibility="{Binding Path=Process.IsProviderRunning, Converter={StaticResource BoolToHiddenConverter}}">Start Mining</Button>
+                <Button Style="{StaticResource GradientButtonStyle}" Click="btnStart_Click"  Margin="0,15,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="45" Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="3" IsEnabled="{Binding Path=IsMiningReadyToRun, Mode=OneWay}" Visibility="{Binding Path=Process.IsProviderRunning, Converter={StaticResource BoolToCollapsedConverter}}">Start Mining</Button>
                 <TextBlock  Grid.ColumnSpan="3" TextWrapping="WrapWithOverflow"  Text="{Binding StartButtonExplanation}" Grid.Column="4" Grid.Row="1" Margin="0,5,0,0" FontSize="12"></TextBlock>
 
                 <Border Style="{DynamicResource BorderStyleBlueBox}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0" Grid.Column="0" Padding="8" Grid.Row="2">
@@ -142,7 +142,7 @@
                         </StackPanel>
                     </Grid>
                 </Border>
-                <Label Grid.Column="4" Grid.Row="2" VerticalAlignment="Bottom" Margin="32,15"  Visibility="{Binding Path=IsAnyGpuEnabled, Converter={StaticResource BoolToHiddenConverter}}">GPU not supported</Label>
+                <Label Grid.Column="4" Grid.Row="2" VerticalAlignment="Bottom" Margin="32,15"  Visibility="{Binding Path=IsAnyGpuEnabled, Converter={StaticResource BoolToCollapsedConverter}}">GPU not supported</Label>
                 <Border Style="{DynamicResource BorderStyleBlueBox}" Margin="0" HorizontalAlignment="Stretch" Grid.Column="4" Grid.Row="2" Opacity="{Binding Path=GpuOpacity}">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -213,7 +213,7 @@
                         </StackPanel>
                     </Grid>
                 </Border>
-                <Label Grid.Column="6" Grid.Row="2" VerticalAlignment="Bottom" Margin="32,15"  Visibility="{Binding Path=IsCpuMiningEnabledByNetwork, Converter={StaticResource BoolToHiddenConverter}}">Coming soon!</Label>
+                <Label Grid.Column="6" Grid.Row="2" VerticalAlignment="Bottom" Margin="32,15"  Visibility="{Binding Path=IsCpuMiningEnabledByNetwork, Converter={StaticResource BoolToCollapsedConverter}}">Coming soon!</Label>
 
                 <Border Style="{DynamicResource BorderStyleBlueBox}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0" Grid.Column="6" Grid.Row="2" Opacity="{Binding CpuOpacity}">
                     <Grid>

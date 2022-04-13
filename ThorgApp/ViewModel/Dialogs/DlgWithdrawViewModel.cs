@@ -187,7 +187,8 @@ namespace GolemUI.ViewModel.Dialogs
                     {
                         if (_useGasless())
                         {
-                            TxHash = await _paymentService.RequestGaslessTransferTo(PaymentDriver.ERC20.Id, amount, withdrawAddress);
+                            // TODO: amount
+                            TxHash = await _paymentService.RequestGaslessTransferTo(PaymentDriver.ERC20.Id, 0.0000123m, withdrawAddress);
                         } else
                         {
                             // TODO: TxHash
@@ -208,17 +209,21 @@ namespace GolemUI.ViewModel.Dialogs
                         return false;
                     }                  
                 }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
                 finally
                 {
                     _unlock();
                 }
             }
-            else
-            {
-                return false;
-            }
+            
+            return false;
+            
         }
 
+        // TODO: use it?
         public string? PolygonScanUrl { get; private set; } = null;
 
 

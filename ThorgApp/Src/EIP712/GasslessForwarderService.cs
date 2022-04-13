@@ -89,9 +89,9 @@ namespace GolemUI.Src.EIP712
             if (result.StatusCode == System.Net.HttpStatusCode.OK)
             {   
 
-                    if (data["txhash"] != null)
+                    if (data["txId"] != null)
                     {
-                        return data.txhash.ToString();
+                        return data.txId.ToString();
                     } else
                     {
                         throw new GaslessForwarderException("No txhash value from forwarder");
