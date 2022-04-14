@@ -194,10 +194,12 @@ namespace GolemUI.Command.GSB
 
         public async Task<string> TransferTo(string driver, string from, string network, string? to, decimal? amount = null, decimal? feeLimit = null)
         {
+            // TODO: yagna returns unexpected output, fix it
             var result = await _doPost<Common.Result<string, object>, Model.Transfer>($"local/driver/{driver}/Transfer", new Model.Transfer(from, to, amount, network, feeLimit: null));
             var cap = System.Text.RegularExpressions.Regex.Match(result.Ok ?? "", @"https:[^\s]*$").Captures;
             if (cap.Count == 1)
             {
+                // TODO: return TxHash
                 return cap[0].Value;
             }
             try

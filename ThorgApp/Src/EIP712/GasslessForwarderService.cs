@@ -88,15 +88,19 @@ namespace GolemUI.Src.EIP712
             dynamic data = JsonConvert.DeserializeObject<dynamic>(resultBody);
             if (result.StatusCode == System.Net.HttpStatusCode.OK)
             {   
-
-                    if (data["txId"] != null)
-                    {
-                        return data.txId.ToString();
-                    } else
-                    {
-                        throw new GaslessForwarderException("No txhash value from forwarder");
-                    }
-            } else
+                if (data["txId"] != null)
+                {
+                    return data.txId.ToString();
+                } else
+                {
+                    throw new GaslessForwarderException("No txhash value from the forwarder");
+                }
+            } else if ((int)result.StatusCode == 429)
+            {
+                // Grace period failure
+                throw new GaslessForwarderException(data["message"].ToString() + "\nRetry after: " + result.Headers.RetryAfter.ToString());
+            }
+            else
             {
                 throw new GaslessForwarderException(data["message"].ToString());
             }

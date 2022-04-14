@@ -305,13 +305,20 @@ namespace GolemUI.Src
             request.SignedMessage = msg;
             request.SenderAddress = _buildInAdress;
 
+            try
+            {
+                string txHash = await _gasslessForwarder.SendRequest(request);
+                return txHash;
+            }catch (HttpRequestException ex)
+            {
+                var error_message = ex.Message;
+                if (ex.InnerException != null)
+                {
+                    error_message += " Caused by: " + ex.InnerException.Message;
+                }
 
-
-            string txHash = await _gasslessForwarder.SendRequest(request);
-
-            //Console.WriteLine("signed msg = " + msg.ToHex() + " , "/* + success.ToString()*/);
-
-            return txHash;
+                throw new GaslessForwarderException(error_message);
+            }
         }
 
         public async Task<string> TransferTo(string driver, decimal amount, string destinationAddress, decimal? txFee)

@@ -128,6 +128,11 @@ namespace GolemUI.ViewModel.Dialogs
             }
         }
 
+        internal void ClearWidthrawStatus()
+        {
+            WithdrawTextStatus = "";
+        }
+
         private void _unlock()
         {
             _processing -= 1;
@@ -155,6 +160,9 @@ namespace GolemUI.ViewModel.Dialogs
                     } else
                     {
                         TxFee = await _paymentService.TransferFee(Amount, _withdrawAddress) * 1.1m;
+                        
+                        // TODO: remove
+                        await Task.Delay(1000);
                     }
                 }
             }
@@ -164,16 +172,9 @@ namespace GolemUI.ViewModel.Dialogs
             }
         }
 
-        public void OpenZkSyncExplorer()
+        public void OpenPolygonScan()
         {
-            System.Diagnostics.Process.Start(PolygonScanUrl);
-        }
-
-        public async void TestGassless()
-        {
-            TxHash = await _paymentService.RequestGaslessTransferTo(PaymentDriver.ERC20.Id, 0.0000123m, "0x39b04dbC4B4302e9c7F84D275755CF042898CEae");
-
-            Console.WriteLine("tx hash resolved: " + TxHash);
+            System.Diagnostics.Process.Start("https://polygonscan.com/tx/" + TxHash);
         }
 
         public async Task<bool> SendTx()
@@ -190,12 +191,11 @@ namespace GolemUI.ViewModel.Dialogs
                             // TODO: amount
                             TxHash = await _paymentService.RequestGaslessTransferTo(PaymentDriver.ERC20.Id, 0.0000123m, withdrawAddress);
                         } else
-                        {
-                            // TODO: TxHash
-                            var url = await _paymentService.TransferTo(PaymentDriver.ERC20.Id, amount, withdrawAddress, null);
+                        {   
+                            TxHash = await _paymentService.TransferTo(PaymentDriver.ERC20.Id, amount, withdrawAddress, null);
                         }
 
-                        // TODO: no unlock?
+                        this.WithdrawTextStatus = "";
                         return true;
                     }
                     catch (GsbServiceException e)
@@ -209,10 +209,6 @@ namespace GolemUI.ViewModel.Dialogs
                         return false;
                     }                  
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                }
                 finally
                 {
                     _unlock();
@@ -222,10 +218,6 @@ namespace GolemUI.ViewModel.Dialogs
             return false;
             
         }
-
-        // TODO: use it?
-        public string? PolygonScanUrl { get; private set; } = null;
-
 
         private string? _withdrawTextStatus = null;
         public string? WithdrawTextStatus
