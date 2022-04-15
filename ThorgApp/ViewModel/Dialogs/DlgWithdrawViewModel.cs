@@ -22,9 +22,6 @@ namespace GolemUI.ViewModel.Dialogs
 
         public string Description { get; }
 
-
-
-
         public OutputNetwork(string driver, string name, string description)
         {
             Driver = driver;
@@ -102,6 +99,7 @@ namespace GolemUI.ViewModel.Dialogs
 
 
         public bool ShouldGaslessSwhitchBeEnabled => AvailableGLM > 0 && AvailableGLM == Amount;
+
         public bool IsGaslessUsed { get; set; }
 
         bool _shouldTransferAllTokensToL1 = true;
