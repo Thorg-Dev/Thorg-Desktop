@@ -196,16 +196,11 @@ namespace GolemUI.ViewModel.Dialogs
                         this.WithdrawTextStatus = "";
                         return true;
                     }
-                    catch (GsbServiceException e)
+                    catch (Exception e) when (e is GsbServiceException || e is GaslessForwarderException)
                     {
                         this.WithdrawTextStatus = e.Message;
                         return false;
                     }
-                    catch (GaslessForwarderException e)
-                    {
-                        this.WithdrawTextStatus = e.Message;
-                        return false;
-                    }                  
                 }
                 finally
                 {

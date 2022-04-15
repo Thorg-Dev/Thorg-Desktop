@@ -42,15 +42,12 @@ namespace GolemUI.Src.EIP712
         public string? SenderAddress;
     }
 
-
     class GaslessForwarderException: Exception
     {
         public GaslessForwarderException(string message, Exception? cause = null) : base(message, cause)
         {
         }
     }
-    
-
 
     public class GasslessForwarderService
     {
