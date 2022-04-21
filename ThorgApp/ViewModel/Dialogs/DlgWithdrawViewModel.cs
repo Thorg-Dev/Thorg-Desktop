@@ -44,6 +44,7 @@ namespace GolemUI.ViewModel.Dialogs
             _paymentService = paymentService;
             _priceProvider = priceProvider;
 
+            // TODO: remove
             // yagna public key (~1 GLM)
             //WithdrawAddress = "0xFeaED3f817169C012D040F05C6c52bCE5740Fc37";
 
@@ -158,9 +159,6 @@ namespace GolemUI.ViewModel.Dialogs
                     } else
                     {
                         TxFee = await _paymentService.TransferFee(Amount, _withdrawAddress) * 1.1m;
-                        
-                        // TODO: remove
-                        await Task.Delay(1000);
                     }
                 }
             }
