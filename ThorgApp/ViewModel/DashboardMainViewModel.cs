@@ -22,7 +22,7 @@ namespace GolemUI.ViewModel
         MainWindowState MainWindowState { get; set; }
         public DashboardMainViewModel(IPriceProvider priceProvider, IPaymentService paymentService, IProviderConfig providerConfig, IProcessController processController, Src.BenchmarkService benchmarkService, IBenchmarkResultsProvider benchmarkResultsProvider,
             IStatusProvider statusProvider, IHistoryDataProvider historyDataProvider, INotificationService notificationService, IUserSettingsProvider userSettingsProvider,
-            ITaskProfitEstimator taskProfitEstimator, ISchedulingProvider schedulingProvider)
+            ITaskProfitEstimator taskProfitEstimator, ISchedulingProvider schedulingProvider, IImageMetadata imageMetadataProvider)
         {
             _userSettingsProvider = userSettingsProvider;
             _benchmarkResultsProvider = benchmarkResultsProvider;
@@ -31,6 +31,7 @@ namespace GolemUI.ViewModel
             _processController = processController;
             _providerConfig = providerConfig;
             _benchmarkService = benchmarkService;
+            _imageMetadataProvider = imageMetadataProvider;
 
             _benchmarkService.AntivirusStatus += _benchmarkService_AntivirusStatus;
             _statusProvider = statusProvider;
@@ -43,11 +44,18 @@ namespace GolemUI.ViewModel
             _statusProvider.PropertyChanged += OnActivityStatusChanged;
             _processController.PropertyChanged += OnProcessControllerChanged;
             _schedulingProvider.PropertyChanged += OnSchedulingProviderChanged;
+            _imageMetadataProvider.PropertyChanged += OnHistoryDataProviderChanged;
 
             _benchmarkService.PropertyChanged += _benchmarkService_PropertyChanged;
             _taskProfitEstimator.PropertyChanged += _taskProfitEstimator_PropertyChanged;
         }
 
+        private void OnHistoryDataProviderChanged(object sender, PropertyChangedEventArgs e)
+        {
+            _imageVisualRepresentation = _imageMetadataProvider.Image;
+            OnPropertyChanged("ImageVisualRepresentation");
+
+        }
         private void OnSchedulingProviderChanged(object sender, PropertyChangedEventArgs e)
         {
             if (_schedulingProvider.isMiningScheduled == false) return;
@@ -664,11 +672,14 @@ namespace GolemUI.ViewModel
             }
         }
 
+        private BitmapImage _imageVisualRepresentation = null;
+        public BitmapImage ImageVisualRepresentation => _imageVisualRepresentation;
 
         private readonly IPriceProvider _priceProvider;
         private readonly IPaymentService _paymentService;
         private readonly IProviderConfig _providerConfig;
         private readonly BenchmarkService _benchmarkService;
+        private readonly IImageMetadata _imageMetadataProvider;
         private readonly IStatusProvider _statusProvider;
         private readonly IProcessController _processController;
         private readonly IBenchmarkResultsProvider _benchmarkResultsProvider;

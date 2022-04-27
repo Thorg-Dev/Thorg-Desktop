@@ -230,6 +230,7 @@
                             <Label FontSize="10" Content="{Binding Path=CpuCardsInfo, Mode=OneWay}" Margin="4,0,0,0" Foreground="#99b" Padding="0"/>
                         </StackPanel>
                         <Image Source="Icons/DefaultStyle/png/Dashboard/Cpu.png" Grid.Column="0" Grid.Row="1" Margin="40, 5" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality" />
+                        <Image x:Name="hashimage_image" Margin="76,43,39,1" Grid.Row="1" Source="{Binding ImageVisualRepresentation}"/>
 
                         <StackPanel Grid.Row="2" Margin="0,24,0,8" HorizontalAlignment="Center">
                             <Label Content="CPU Mining" Foreground="White" FontFamily="Segoe UI Black" FontSize="18" Padding="0"></Label>

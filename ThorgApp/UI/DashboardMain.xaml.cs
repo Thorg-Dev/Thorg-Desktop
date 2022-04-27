@@ -30,12 +30,16 @@ namespace GolemUI
         IProcessController _processController;
 
         IBenchmarkResultsProvider _benchmarkResultsProvider;
-        public DashboardMain(DashboardMainViewModel viewModel, IBenchmarkResultsProvider benchmarkResultsProvider, IProcessController processController)
+
+        IHistoryDataProvider _historyDataProvider;
+
+        public DashboardMain(DashboardMainViewModel viewModel, IHistoryDataProvider dataProv, IBenchmarkResultsProvider benchmarkResultsProvider, IProcessController processController)
         {
             _benchmarkResultsProvider = benchmarkResultsProvider;
             DataContext = viewModel;
             InitializeComponent();
             _processController = processController;
+            _historyDataProvider = dataProv;
         }
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
