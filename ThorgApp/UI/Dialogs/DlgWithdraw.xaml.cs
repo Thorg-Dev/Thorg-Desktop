@@ -96,14 +96,14 @@ namespace GolemUI.UI.Dialogs
             DialogResult = true;
             Close();
         }
-        
+
         private void BtnCheckOnPolygonScan_Click(object sender, RoutedEventArgs e)
         {
             Model.OpenPolygonScan();
         }
 
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {   
+        {
             Model.ClearWidthrawStatus();
         }
     }

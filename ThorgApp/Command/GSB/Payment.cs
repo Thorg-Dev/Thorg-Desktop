@@ -174,7 +174,7 @@ namespace GolemUI.Command.GSB
                 [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
                 public decimal? FeeLimit { get; set; }
 
-                public bool wait_for_tx { get; set; }  
+                public bool wait_for_tx { get; set; }
 
                 public Transfer(string sender, string[] receivers, decimal[] amounts, string network, decimal? feeLimit)
                 {
@@ -217,8 +217,8 @@ namespace GolemUI.Command.GSB
         }
 
         public async Task<string> TransferTo(string driver, string from, string network, string to, decimal amount, decimal? feeLimit = null)
-        {   
-            var result = await _doPost<Common.Result<string, object>, Model.Transfer>($"local/driver/{driver}/Transfer", new Model.Transfer(from, new string[] {to}, new decimal[] {amount}, network, feeLimit: null));
+        {
+            var result = await _doPost<Common.Result<string, object>, Model.Transfer>($"local/driver/{driver}/Transfer", new Model.Transfer(from, new string[] { to }, new decimal[] { amount }, network, feeLimit: null));
             var cap = System.Text.RegularExpressions.Regex.Match(result.Ok ?? "", @"tx_hash: ([0-9a-fx]{66})", RegexOptions.IgnoreCase).Groups;
             if (cap.Count == 2)
             {

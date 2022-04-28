@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GolemUI.Command;
 using GolemUI.Src.EIP712;
+using static GolemUI.Interfaces.IPaymentService;
 
 namespace GolemUI.ViewModel.Dialogs
 {
@@ -43,13 +44,6 @@ namespace GolemUI.ViewModel.Dialogs
 
             _paymentService = paymentService;
             _priceProvider = priceProvider;
-
-            // TODO: remove
-            // yagna public key (~1 GLM)
-            //WithdrawAddress = "0xFeaED3f817169C012D040F05C6c52bCE5740Fc37";
-
-            // forwarder addres (has ~0.2 matic gas)
-            WithdrawAddress = "0xd4EA255B238E214A9A0E5656eC36Fe27CD14adAC";
             IsGaslessUsed = true;
         }
 
@@ -156,7 +150,10 @@ namespace GolemUI.ViewModel.Dialogs
                     if (_useGasless())
                     {
                         TxFee = 0m;
-                    } else
+                        _gaslessTicket = await _paymentService.RequestGaslessTransferTo(PaymentDriver.ERC20.Id, _withdrawAddress);
+                        Amount = _gaslessTicket.Amount;
+                    }
+                    else
                     {
                         TxFee = await _paymentService.TransferFee(Amount, _withdrawAddress) * 1.1m;
                     }
@@ -184,10 +181,14 @@ namespace GolemUI.ViewModel.Dialogs
                     {
                         if (_useGasless())
                         {
-                            // TODO: amount
-                            TxHash = await _paymentService.RequestGaslessTransferTo(PaymentDriver.ERC20.Id, 0.0000123m, withdrawAddress);
-                        } else
-                        {   
+                            if (_gaslessTicket == null)
+                            {
+                                return false;
+                            }
+                            TxHash = await _paymentService.ExecuteGaslessTransferTo(_gaslessTicket);
+                        }
+                        else
+                        {
                             TxHash = await _paymentService.TransferTo(PaymentDriver.ERC20.Id, amount, withdrawAddress, null);
                         }
 
@@ -205,9 +206,9 @@ namespace GolemUI.ViewModel.Dialogs
                     _unlock();
                 }
             }
-            
+
             return false;
-            
+
         }
 
         private string? _withdrawTextStatus = null;
@@ -222,6 +223,8 @@ namespace GolemUI.ViewModel.Dialogs
             }
 
         }
+
+        private GaslessTicket? _gaslessTicket = null;
 
         public decimal MinAmount => 0;
         public decimal MaxAmount => AvailableGLM ?? 0m;
