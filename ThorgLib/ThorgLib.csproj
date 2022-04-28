@@ -102,6 +102,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IPriceProvider.cs" />
+    <Compile Include="Model\Coin.cs" />
+    <Compile Include="Model\Currency.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -110,10 +113,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\ChildProcessManager.cs" />
     <Compile Include="Utils\DateTimeUtils.cs" />
     <Compile Include="Utils\LookupCache.cs" />
     <Compile Include="Utils\MathUtils.cs" />
     <Compile Include="Utils\ObservableListExtensions.cs" />
+    <Compile Include="Utils\PathUtil.cs" />
+    <Compile Include="Utils\PriceProviderExtension.cs" />
+    <Compile Include="Utils\ProcessExtension.cs" />
     <Compile Include="Utils\StringRollingBuilder.cs" />
     <Compile Include="Utils\VersionUtil.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -136,6 +148,12 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

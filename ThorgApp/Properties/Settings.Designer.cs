@@ -25,7 +25,7 @@ namespace GolemUI.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("LazySubnet")]
+        [global::System.Configuration.DefaultSettingValueAttribute("LazySubnet30")]
         public string Subnet {
             get {
                 return ((string)(this["Subnet"]));
@@ -34,7 +34,7 @@ namespace GolemUI.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool TestNet {
             get {
                 return ((bool)(this["TestNet"]));
@@ -67,25 +67,7 @@ namespace GolemUI.Properties {
                 return ((int)(this["BenchmarkResultsVersion"]));
             }
         }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("GolemFactory")]
-        public string GolemFactoryPath {
-            get {
-                return ((string)(this["GolemFactoryPath"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ThorgMiner")]
-        public string SettingsSubfolder {
-            get {
-                return ((string)(this["SettingsSubfolder"]));
-            }
-        }
-        
+
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("n1.mining-proxy.imapp.pl:8069")]
@@ -157,7 +139,7 @@ namespace GolemUI.Properties {
                 return ((string)(this["dialog_antivir_title"]));
             }
         }
-        
+
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("gpu")]
@@ -175,7 +157,7 @@ namespace GolemUI.Properties {
                 return ((string)(this["dialog_gpu_title"]));
             }
         }
-        
+
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("wallet")]
@@ -193,7 +175,7 @@ namespace GolemUI.Properties {
                 return ((string)(this["dialog_wallet_title"]));
             }
         }
-        
+
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Got it!")]
@@ -229,17 +211,17 @@ namespace GolemUI.Properties {
                 return ((string)(this["DefaultProxyLowMem"]));
             }
         }
-        
+
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(@"Your antivirus is blocking Thorg's mining module called “EthDcrMiner64.exe”. If you do not have antivirus software installed you can unblock this by going to your Windows Security settings, and then clicking on Virus and Threat Protections. 
+        [global::System.Configuration.DefaultSettingValueAttribute(@"Your antivirus is blocking Thorg's mining module called “EthDcrMiner64.exe”. If you do not have antivirus software installed you can unblock this by going to your Windows Security settings, and then clicking on Virus and Threat Protections.
 If it doesn't help you might want to restart Thorg after changing settings in your antivirus.")]
         public string dialog_antivir_message {
             get {
                 return ((string)(this["dialog_antivir_message"]));
             }
         }
-        
+
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("No worries though! We will soon release an update with support for cards that hav" +
@@ -250,7 +232,7 @@ If it doesn't help you might want to restart Thorg after changing settings in yo
                 return ((string)(this["dialog_gpu_message"]));
             }
         }
-        
+
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(@"Thorg is most suited for addresses that the user has custody of, compared to some other individual than the Thorg user (such as a centralized exchange) having custody of the address.
@@ -260,7 +242,38 @@ Most exchanges do not support L2 payments like Polygon that Thorg uses. Please c
                 return ((string)(this["dialog_wallet_message"]));
             }
         }
-        
+
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"Your antivirus is blocking Thorg's mining module called “EthDcrMiner64.exe”. If you do not have antivirus software installed you can unblock this by going to your Windows Security settings, and then clicking on Virus and Threat Protections.
+If it doesn't help you might want to restart Thorg after changing settings in your antivirus.")]
+        public string dialog_antivir_message {
+            get {
+                return ((string)(this["dialog_antivir_message"]));
+            }
+        }
+
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("No worries though! We will soon release an update with support for cards that hav" +
+            "e less than 6B of RAM. Also, stay tuned for CPU support that is just around the " +
+            "corner.\nTill then you can explore the app and get to know Thorg a bit better!")]
+        public string dialog_gpu_message {
+            get {
+                return ((string)(this["dialog_gpu_message"]));
+            }
+        }
+
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"Thorg is most suited for addresses that the user has custody of, compared to some other individual than the Thorg user (such as a centralized exchange) having custody of the address.
+Most exchanges do not support L2 payments like Polygon that Thorg uses. Please change your wallet address to one that you're in control of, such as MetaMask.")]
+        public string dialog_wallet_message {
+            get {
+                return ((string)(this["dialog_wallet_message"]));
+            }
+        }
+
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("https://polygon-rpc.com/")]

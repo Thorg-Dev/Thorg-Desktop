@@ -92,8 +92,8 @@ namespace GolemUI.Src
 
         public bool IsCpuActive
         {
-            get => _isPresetActive("wasmtime");
-            set { _setPreset("wasmtime", value); }
+            get => _isPresetActive("vm");
+            set { _setPreset("vm", value); }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -164,11 +164,11 @@ namespace GolemUI.Src
                         { "invalid-share", 0m },
                         { "hash-rate", 0m }
                     }), out _args, out _info);
-                    if (isGpuCapable)
+/*                    if (isGpuCapable)
                     {
                         _provider.ActivatePreset("hminer");
                         changedProperties.Add("IsMiningActive");
-                    }
+                    }*/
                 }
                 else
                 {
@@ -195,11 +195,11 @@ namespace GolemUI.Src
                         { "invalid-share", 0m },
                         { "hash-rate", 0m }
                     }), out _args, out _info);
-                    if (isGpuCapable)
+            /*        if (isGpuCapable)
                     {
                         _provider.ActivatePreset("gminer");
                         changedProperties.Add("IsMiningActive");
-                    }
+                    }*/
                 }
                 else
                 {
@@ -213,22 +213,43 @@ namespace GolemUI.Src
                     });
                 }
 
-
-                if (presets.Contains("gminer") || presets.Contains("hminer"))
+                if (isGpuCapable && IsMiningActive)
                 {
-                    if (isLowMemoryMode)
+                    if (presets.Contains("gminer") || presets.Contains("hminer"))
                     {
-                        _provider.ActivatePreset("hminer");
-                        _provider.DeactivatePreset("gminer");
-                    }
-                    else
-                    {
-                        _provider.DeactivatePreset("hminer");
-                        _provider.ActivatePreset("gminer");
+                        if (isLowMemoryMode)
+                        {
+                            _provider.ActivatePreset("hminer");
+                            _provider.DeactivatePreset("gminer");
+                        }
+                        else
+                        {
+                            _provider.DeactivatePreset("hminer");
+                            _provider.ActivatePreset("gminer");
+                        }
                     }
                 }
 
+                if (!presets.Contains("vm"))
+                {
+                    _provider.AddPreset(new GolemUI.Command.Preset("vm", "vm", new Dictionary<string, decimal>()
+                    {
+                        { "cpu", 0.001m },
+                        { "duration", 0m }
+                    }), out _args, out _info);
+                    changedProperties.Add("IsCpuActive");
+                }
 
+                if (IsCpuActive)
+                {
+                    _provider.ActivatePreset("vm");
+                }
+                else
+                {
+                    _provider.DeactivatePreset("vm");
+                }
+
+                /*
                 if (!presets.Contains("wasmtime"))
                 {
                     _provider.AddPreset(new GolemUI.Command.Preset("wasmtime", "wasmtime", new Dictionary<string, decimal>()
@@ -239,6 +260,11 @@ namespace GolemUI.Src
                     _provider.ActivatePreset("wasmtime");
                     changedProperties.Add("IsCpuActive");
                 }
+
+                if (IsCpuActive)
+                {
+                    _provider.ActivatePreset("wasmtime");
+                }*/
 
                 if (presets.Contains("default"))
                 {

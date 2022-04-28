@@ -9,7 +9,6 @@ namespace GolemUI.Utils
 {
     public static class ObservableCollectionExtensions
     {
-        /*
 
         public static void CopyFromStandardCollection<T>(this ObservableCollection<T> targetCollection, ICollection<T>? srcCollection)
         {
@@ -34,6 +33,6 @@ namespace GolemUI.Utils
             {
                 targetCollection.RemoveAt(targetCollection.Count - 1);
             }
-        }*/
+        }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GolemUI.Utils
 {
-    class MathUtils
+    public class MathUtils
     {
         public static int RoundToInt(double d)
         {

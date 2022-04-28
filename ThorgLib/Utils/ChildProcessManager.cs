@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GolemUI
 {
-    internal sealed class ChildProcessManager : IDisposable
+    public class ChildProcessManager : IDisposable
     {
         private SafeJobHandle? _handle;
 

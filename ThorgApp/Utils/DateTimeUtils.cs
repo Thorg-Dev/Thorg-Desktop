@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GolemUI.Utils
 {
-    class DateTimeUtils
+    public class DateTimeUtils
     {
         public static DateTime RoundUp(DateTime dt, TimeSpan d)
         {
