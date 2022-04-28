@@ -64,7 +64,7 @@
                                 </Grid>
 
                                 <StackPanel Visibility="{Binding Path=IsFinished, Converter={StaticResource BoolToVisibleConverter}}" VerticalAlignment="Center" Orientation="Horizontal">
-                                    <Viewbox Width="25" Height="25" Visibility="{Binding Path=IsReadyForMining, Converter={StaticResource BoolToHiddenConverter}}">
+                                    <Viewbox Width="25" Height="25" Visibility="{Binding Path=IsReadyForMining, Converter={StaticResource BoolToCollapsedConverter}}">
                                         <Canvas Height="20" Width="20">
                                             <Canvas>
                                                 <Canvas.RenderTransform>
@@ -518,7 +518,7 @@ These 12 words are a backup for your wallet in case your disk fails or any other
                                                     <TextBlock Margin="0, 0, 0, 0" Foreground="#aaa">Estimated hashrate</TextBlock>
                                                     <TextBlock FontFamily="Segoe UI Black" FontSize="28" Foreground="#fff" Text="{Binding Path=TotalHashRate, Converter={StaticResource HashRateConverter}}"/>
                                                     <Button Content="Next" Margin="20, 18" Style="{DynamicResource GradientButtonStyle}" MinHeight="32" IsDefault="True" Click="OnWTLStep4Next"
-                                                        Visibility="{Binding Path=BenchmarkIsRunning, Converter={StaticResource BoolToHiddenConverter}}"
+                                                        Visibility="{Binding Path=BenchmarkIsRunning, Converter={StaticResource BoolToCollapsedConverter}}"
                                             />
                                                 </StackPanel>
 
@@ -872,7 +872,7 @@ These 12 words are a backup for your wallet in case your disk fails or any other
                                                     <TextBlock Margin="0, 0, 0, 0" Foreground="#aaa">Estimated hashrate</TextBlock>
                                                     <TextBlock FontFamily="Segoe UI Black" FontSize="28" Foreground="#fff" Text="{Binding Path=TotalHashRate, Converter={StaticResource HashRateConverter}}"/>
                                                     <Button Content="Next" Margin="20, 18" Style="{DynamicResource GradientButtonStyle}" MinHeight="32" IsDefault="True" Click="OnWTLStep4Next"
-                                                        Visibility="{Binding Path=BenchmarkIsRunning, Converter={StaticResource BoolToHiddenConverter}}"
+                                                        Visibility="{Binding Path=BenchmarkIsRunning, Converter={StaticResource BoolToCollapsedConverter}}"
                                             />
                                                 </StackPanel>
                                             </UniformGrid>

@@ -17,6 +17,7 @@ using GolemUI.Src.EIP712;
 using Nethereum.Web3;
 using System.Windows.Controls;
 using Nethereum.Hex.HexConvertors.Extensions;
+using static GolemUI.Interfaces.IPaymentService;
 
 namespace GolemUI.Src
 {
@@ -276,13 +277,28 @@ namespace GolemUI.Src
             return txUrl;
         }
 
-        public async Task<string> RequestGaslessTransferTo(string driver, decimal amount, string destinationAddress)
+        public async Task<GaslessTicket> RequestGaslessTransferTo(string driver, string destinationAddress)
         {
             if (driver != PaymentDriver.ERC20.Id)
+            {
                 throw new ArgumentException($"PaymentDriver {driver} is not supported");
+            }
 
-            var amountInWei = Web3.Convert.ToWei(amount);
-            var request = await _gasslessForwarder.GetEip712EncodedTransferRequest(_network.Id, _buildInAdress, destinationAddress, amountInWei);
+            var (BlockHash, Amount) = await _gasslessForwarder.SnapState(_network.Id, _buildInAdress);
+
+            return new GaslessTicket()
+            {
+                BlockHash = BlockHash,
+                DestinationAddress = destinationAddress,
+                Driver = driver,
+                AmountWei = Amount
+            };
+        }
+
+        public async Task<string> ExecuteGaslessTransferTo(GaslessTicket ticket)
+        {
+            var request = await _gasslessForwarder.GetEip712EncodedTransferRequest(_network.Id, _buildInAdress, ticket.DestinationAddress,
+                ticket.AmountWei);
 
             var id = await _gsbId.GetDefaultIdentity();
 
@@ -297,21 +313,25 @@ namespace GolemUI.Src
                 request.R = "0x" + r.ToHex();
                 request.S = "0x" + s.ToHex();
                 request.V = "0x" + new byte[] { v }.ToHex();
-                //Console.WriteLine($"R = {request.R}");
-                //Console.WriteLine($"S = {request.S}");
-                //Console.WriteLine($"V = {request.V}");
             }
-            //Console.WriteLine("after signing = " + msg.ToHex());
             request.SignedMessage = msg;
             request.SenderAddress = _buildInAdress;
 
+            try
+            {
+                string txHash = await _gasslessForwarder.SendRequest(request);
+                return txHash;
+            }
+            catch (HttpRequestException ex)
+            {
+                var error_message = ex.Message;
+                if (ex.InnerException != null)
+                {
+                    error_message += " Caused by: " + ex.InnerException.Message;
+                }
 
-
-            string txHash = await _gasslessForwarder.SendRequest(request);
-
-            //Console.WriteLine("signed msg = " + msg.ToHex() + " , "/* + success.ToString()*/);
-
-            return txHash;
+                throw new GaslessForwarderException(error_message);
+            }
         }
 
         public async Task<string> TransferTo(string driver, decimal amount, string destinationAddress, decimal? txFee)

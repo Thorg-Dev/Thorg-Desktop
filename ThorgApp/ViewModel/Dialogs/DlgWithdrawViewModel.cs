@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GolemUI.Command;
+using GolemUI.Src.EIP712;
+using static GolemUI.Interfaces.IPaymentService;
 
 namespace GolemUI.ViewModel.Dialogs
 {
@@ -20,9 +22,6 @@ namespace GolemUI.ViewModel.Dialogs
         public string Name { get; }
 
         public string Description { get; }
-
-
-
 
         public OutputNetwork(string driver, string name, string description)
         {
@@ -45,6 +44,7 @@ namespace GolemUI.ViewModel.Dialogs
 
             _paymentService = paymentService;
             _priceProvider = priceProvider;
+            IsGaslessUsed = true;
         }
 
         public DlgWithdrawStatus TransactionStatus => DlgWithdrawStatus.None;
@@ -83,6 +83,7 @@ namespace GolemUI.ViewModel.Dialogs
                 OnPropertyChanged(nameof(Amount));
                 OnPropertyChanged("IsValid");
                 OnPropertyChanged("AmountUSD");
+                OnPropertyChanged(nameof(ShouldGaslessSwhitchBeEnabled));
             }
         }
 
@@ -92,6 +93,9 @@ namespace GolemUI.ViewModel.Dialogs
         public decimal AvailableUSD => _priceProvider.CoinValue(AvailableGLM ?? 0m, Model.Coin.GLM);
 
 
+        public bool ShouldGaslessSwhitchBeEnabled => AvailableGLM > 0 && AvailableGLM == Amount;
+
+        public bool IsGaslessUsed { get; set; }
 
         bool _shouldTransferAllTokensToL1 = true;
 
@@ -117,6 +121,11 @@ namespace GolemUI.ViewModel.Dialogs
             }
         }
 
+        internal void ClearWidthrawStatus()
+        {
+            WithdrawTextStatus = "";
+        }
+
         private void _unlock()
         {
             _processing -= 1;
@@ -126,6 +135,11 @@ namespace GolemUI.ViewModel.Dialogs
             }
         }
 
+        private bool _useGasless()
+        {
+            return ShouldGaslessSwhitchBeEnabled && IsGaslessUsed;
+        }
+
         public async Task UpdateTxFee()
         {
             _lock();
@@ -133,7 +147,16 @@ namespace GolemUI.ViewModel.Dialogs
             {
                 if (_withdrawAddress != null)
                 {
-                    TxFee = await _paymentService.TransferFee(Amount, _withdrawAddress) * 1.1m;
+                    if (_useGasless())
+                    {
+                        TxFee = 0m;
+                        _gaslessTicket = await _paymentService.RequestGaslessTransferTo(PaymentDriver.ERC20.Id, _withdrawAddress);
+                        Amount = _gaslessTicket.Amount;
+                    }
+                    else
+                    {
+                        TxFee = await _paymentService.TransferFee(Amount, _withdrawAddress) * 1.1m;
+                    }
                 }
             }
             finally
@@ -142,11 +165,11 @@ namespace GolemUI.ViewModel.Dialogs
             }
         }
 
-        public void OpenZkSyncExplorer()
+        public void OpenPolygonScan()
         {
-            System.Diagnostics.Process.Start(PolygonScanUrl);
+            System.Diagnostics.Process.Start("https://polygonscan.com/tx/" + TxHash);
         }
-               
+
         public async Task<bool> SendTx()
         {
             if (_amount is decimal amount && _withdrawAddress is string withdrawAddress)
@@ -154,55 +177,39 @@ namespace GolemUI.ViewModel.Dialogs
                 _lock();
                 try
                 {
-                    bool isGasless = true;
-                    if (isGasless)
+                    try
                     {
-                        try
+                        if (_useGasless())
                         {
-                            if (_amount != MaxAmount)
+                            if (_gaslessTicket == null)
                             {
-                                var url = await _paymentService.RequestGaslessTransferTo(PaymentDriver.ERC20.Id, amount, withdrawAddress);
                                 return false;
                             }
-                            else
-                            {
-                                return true;
-                            }
+                            TxHash = await _paymentService.ExecuteGaslessTransferTo(_gaslessTicket);
                         }
-                        catch (Exception e)
+                        else
                         {
-                            this.WithdrawTextStatus = e.Message;
-                            return false;
+                            TxHash = await _paymentService.TransferTo(PaymentDriver.ERC20.Id, amount, withdrawAddress, null);
                         }
-                    }
-                    else
-                    {
-                        try
-                        {
-                            var url = await _paymentService.TransferTo(PaymentDriver.ERC20.Id, amount, withdrawAddress, null);
-                            return true;
-                        }
-                        catch (GsbServiceException e)
-                        {
-                            this.WithdrawTextStatus = e.Message;
-                            return false;
-                        }
-                    }
 
+                        this.WithdrawTextStatus = "";
+                        return true;
+                    }
+                    catch (Exception e) when (e is GsbServiceException || e is GaslessForwarderException)
+                    {
+                        this.WithdrawTextStatus = e.Message;
+                        return false;
+                    }
                 }
                 finally
                 {
                     _unlock();
                 }
             }
-            else
-            {
-                return false;
-            }
+
+            return false;
+
         }
-
-        public string? PolygonScanUrl { get; private set; } = null;
-
 
         private string? _withdrawTextStatus = null;
         public string? WithdrawTextStatus
@@ -216,6 +223,8 @@ namespace GolemUI.ViewModel.Dialogs
             }
 
         }
+
+        private GaslessTicket? _gaslessTicket = null;
 
         public decimal MinAmount => 0;
         public decimal MaxAmount => AvailableGLM ?? 0m;

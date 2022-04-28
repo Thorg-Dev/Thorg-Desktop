@@ -91,7 +91,7 @@ namespace GolemUI
             services.AddSingleton(cfg => new Src.SingleInstanceLock());
 
             services.AddSingleton(GolemUI.Properties.Settings.Default.TestNet ? Network.Mumbai : Network.Polygon);
-            services.AddSingleton(new GasslessForwarderConfig(GolemUI.Properties.Settings.Default.RpcUrl, GolemUI.Properties.Settings.Default.TestNet ? Network.Mumbai : Network.Polygon, "http://3.123.230.70:8007/api/forward/transfer"));
+            services.AddSingleton(new GasslessForwarderConfig(GolemUI.Properties.Settings.Default.RpcUrl, GolemUI.Properties.Settings.Default.TestNet ? Network.Mumbai : Network.Polygon, "http://gasless.golem.network/api/forward/transfer"));
 
             services.AddSingleton<Interfaces.IPaymentService, Src.PaymentService>();
             services.AddSingleton<Interfaces.IProviderConfig, Src.ProviderConfigService>();

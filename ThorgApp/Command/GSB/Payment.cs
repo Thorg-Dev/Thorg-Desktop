@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace GolemUI.Command.GSB
@@ -26,7 +27,7 @@ namespace GolemUI.Command.GSB
 
                 public string? Token { get; set; }
 
-                public DateTime? Since { get; set; }
+                public long? after_timestamp { get; set; }
 
                 public GetStatus(string address, string driver, string? network = null, string? token = null, DateTime? since = null)
                 {
@@ -34,7 +35,7 @@ namespace GolemUI.Command.GSB
                     Driver = driver ?? throw new ArgumentNullException(nameof(driver));
                     Network = network;
                     Token = token;
-                    Since = since;
+                    after_timestamp = ((DateTimeOffset)since).ToUnixTimeSeconds();
                 }
             }
 
@@ -135,7 +136,8 @@ namespace GolemUI.Command.GSB
                 }
             }
 
-            public class Transfer
+            // Yagna without multipayments:
+            /*public class Transfer
             {
                 public string Sender { get; set; }
 
@@ -157,12 +159,34 @@ namespace GolemUI.Command.GSB
                     Network = network ?? throw new ArgumentNullException(nameof(network));
                     FeeLimit = feeLimit;
                 }
+            }*/
 
+            public class Transfer
+            {
+                public string Sender { get; set; }
+
+                public string[] Receivers { get; set; }
+
+                public decimal[] Amounts { get; set; }
+
+                public string Network { get; set; }
+
+                [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+                public decimal? FeeLimit { get; set; }
+
+                public bool wait_for_tx { get; set; }
+
+                public Transfer(string sender, string[] receivers, decimal[] amounts, string network, decimal? feeLimit)
+                {
+                    Sender = sender ?? throw new ArgumentNullException(nameof(sender));
+                    Receivers = receivers;
+                    Amounts = amounts;
+                    Network = network ?? throw new ArgumentNullException(nameof(network));
+                    FeeLimit = feeLimit;
+                    wait_for_tx = true;
+                }
             }
         }
-
-
-
 
         public Payment(IGsbEndpointFactory gsbEndpointFactory)
         {
@@ -192,13 +216,14 @@ namespace GolemUI.Command.GSB
             return result.Ok ?? throw new HttpRequestException($"Invalid output: {result.Err}");
         }
 
-        public async Task<string> TransferTo(string driver, string from, string network, string? to, decimal? amount = null, decimal? feeLimit = null)
+        public async Task<string> TransferTo(string driver, string from, string network, string to, decimal amount, decimal? feeLimit = null)
         {
-            var result = await _doPost<Common.Result<string, object>, Model.Transfer>($"local/driver/{driver}/Transfer", new Model.Transfer(from, to, amount, network, feeLimit: null));
-            var cap = System.Text.RegularExpressions.Regex.Match(result.Ok ?? "", @"https:[^\s]*$").Captures;
-            if (cap.Count == 1)
+            var result = await _doPost<Common.Result<string, object>, Model.Transfer>($"local/driver/{driver}/Transfer", new Model.Transfer(from, new string[] { to }, new decimal[] { amount }, network, feeLimit: null));
+            var cap = System.Text.RegularExpressions.Regex.Match(result.Ok ?? "", @"tx_hash: ([0-9a-fx]{66})", RegexOptions.IgnoreCase).Groups;
+            if (cap.Count == 2)
             {
-                return cap[0].Value;
+                // First element is the full string, get the second that keeps content of capture group
+                return cap[1].Value;
             }
             try
             {
@@ -216,8 +241,6 @@ namespace GolemUI.Command.GSB
                 }
             }
         }
-
-
 
         private async Task<TOut> _doPost<TOut, TIn>(string serviceUri, TIn input)
         {
