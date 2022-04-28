@@ -146,14 +146,7 @@ namespace GolemUI.ViewModel.Dialogs
         {
             System.Diagnostics.Process.Start(PolygonScanUrl);
         }
-
-        public async void TestGassless()
-        {
-            TxHash = await _paymentService.RequestGaslessTransferTo(PaymentDriver.ERC20.Id, 0.0000123m, "0x39b04dbC4B4302e9c7F84D275755CF042898CEae");
-
-            Console.WriteLine("tx hash resolved: " + TxHash);
-        }
-
+               
         public async Task<bool> SendTx()
         {
             if (_amount is decimal amount && _withdrawAddress is string withdrawAddress)

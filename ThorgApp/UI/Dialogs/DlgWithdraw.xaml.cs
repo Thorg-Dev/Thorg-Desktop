@@ -113,10 +113,6 @@ namespace GolemUI.UI.Dialogs
         {
             System.Diagnostics.Process.Start("https://polygonscan.com/tx/" + Model.TxHash);
         }
-
-        private void SendTestGasslees_Click(object sender, RoutedEventArgs e)
-        {
-            this.Model.TestGassless();
-        }
+        
     }
 }
