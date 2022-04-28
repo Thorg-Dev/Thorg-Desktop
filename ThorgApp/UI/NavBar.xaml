@@ -65,7 +65,7 @@
                         </Canvas>
                         <Label Margin="5,0,0,0" Content="{Binding StepName}" Foreground="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType=ListBoxItem}}"></Label>
                         <Rectangle Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType=ListBox}}" Width="90" Height="3" Margin="4,0,5,0" 
-                                   Visibility="{Binding Path=IsLast, Converter={StaticResource BoolToHiddenConverter}}"/>
+                                   Visibility="{Binding Path=IsLast, Converter={StaticResource BoolToCollapsedConverter}}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>

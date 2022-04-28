@@ -42,7 +42,7 @@
                 </DockPanel>
                 <StackPanel Margin="30,00">
                     <Label Content="{Binding Title}" FontSize="14" Margin="0"/>
-                    <Label VerticalAlignment="Bottom" Margin="0" FontSize="10" HorizontalAlignment="Left" Content="Close the app before installing new one" Visibility="{Binding IsUpToDate, Converter={StaticResource BoolToHiddenConverter}}"/>
+                    <Label VerticalAlignment="Bottom" Margin="0" FontSize="10" HorizontalAlignment="Left" Content="Close the app before installing new one" Visibility="{Binding IsUpToDate, Converter={StaticResource BoolToCollapsedConverter}}"/>
                     <StackPanel Margin="0,20">
                         <Label Visibility="{Binding ShouldForceUpdate, Converter={StaticResource BoolToVisibleConverter}}" Margin="0" Content="This update is critical. Close the app before installing new version." Foreground="Yellow" />
                         <StackPanel Orientation="Horizontal">
@@ -62,9 +62,9 @@
             </StackPanel>
 
             <Button FontSize="18" IsCancel="True" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="30,0,30,30" Height="45"  Click="BtnContinueUsingApp_Click" Name="BtnContinueUsingApp" Style="{StaticResource GradientButtonStyle}" Content="Continue using app" Visibility="{Binding IsUpToDate, Converter={StaticResource BoolToVisibleConverter}}" />
-            <UniformGrid Columns="2" VerticalAlignment="Bottom"  HorizontalAlignment="Stretch" Margin="30,0,30,30"  Visibility="{Binding IsUpToDate, Converter={StaticResource BoolToHiddenConverter}}" >
+            <UniformGrid Columns="2" VerticalAlignment="Bottom"  HorizontalAlignment="Stretch" Margin="30,0,30,30"  Visibility="{Binding IsUpToDate, Converter={StaticResource BoolToCollapsedConverter}}" >
                 <Button FontSize="18" IsCancel="True" HorizontalAlignment="Stretch"   Height="45"  Click="BtnCloseApp_Click" Name="BtnCloseApp" Style="{StaticResource CancelButtonStyle}" Content="Close app" Visibility="{Binding ShouldForceUpdate, Converter={StaticResource BoolToVisibleConverter}}" />
-                <Button FontSize="18" IsCancel="True" HorizontalAlignment="Stretch"   Height="45"  Click="BtnCancel_Click" Name="BtnCancel" Style="{StaticResource CancelButtonStyle}" Content="Skip" Visibility="{Binding ShouldForceUpdate, Converter={StaticResource BoolToHiddenConverter}}" />
+                <Button FontSize="18" IsCancel="True" HorizontalAlignment="Stretch"   Height="45"  Click="BtnCancel_Click" Name="BtnCancel" Style="{StaticResource CancelButtonStyle}" Content="Skip" Visibility="{Binding ShouldForceUpdate, Converter={StaticResource BoolToCollapsedConverter}}" />
                 <Button Style="{StaticResource GradientButtonStyle}" FontSize="18" ToolTip="{Binding UpdateLink}" HorizontalAlignment="Stretch"  Height="45"  Click="BtnGoToDownloadPage_Click" Name="BtnGoToDownloadPage" Content="Download" >
                
                 </Button>

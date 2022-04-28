@@ -97,26 +97,14 @@ namespace GolemUI.UI.Dialogs
             Close();
         }
 
-        private void BtnCheckOnEtherScan_Click(object sender, RoutedEventArgs e)
+        private void BtnCheckOnPolygonScan_Click(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://etherscan.io/");
+            Model.OpenPolygonScan();
         }
 
-        private void BtnCheckOnZKsyncExplorer_Click(object sender, RoutedEventArgs e)
+        private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Model.OpenZkSyncExplorer();
-        }
-
-
-
-        private void txHashButton_Click(object sender, RoutedEventArgs e)
-        {
-            System.Diagnostics.Process.Start("https://polygonscan.com/tx/" + Model.TxHash);
-        }
-
-        private void SendTestGasslees_Click(object sender, RoutedEventArgs e)
-        {
-            this.Model.TestGassless();
+            Model.ClearWidthrawStatus();
         }
     }
 }

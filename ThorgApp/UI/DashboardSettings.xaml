@@ -88,7 +88,7 @@
                     <ColumnDefinition Width="2*" />
 
                 </Grid.ColumnDefinitions>
-                <UniformGrid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,7,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.RowSpan="2" Columns="2" Rows="1" Visibility="{Binding IsMiningProcessRunning, Converter={StaticResource BoolToHiddenConverter }}">
+                <UniformGrid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,7,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.RowSpan="2" Columns="2" Rows="1" Visibility="{Binding IsMiningProcessRunning, Converter={StaticResource BoolToCollapsedConverter }}">
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,0">
                         <Label VerticalAlignment="Bottom" Content="Estimated profit: " FontSize="15" FontWeight="Light" Margin="0" Padding="0,0,0,2"/>
                         <TextBlock VerticalAlignment="Bottom" FontFamily="Segoe UI Black" FontSize="24" Margin="1, 0, 0, 0" Padding="0" Text="{Binding Path=ExpectedProfit, Converter={StaticResource AmountConverter}, ConverterParameter=usdmonth}"/>
@@ -164,7 +164,7 @@
                                                 Margin="-5,37,0,0"
                                             />
                         </StackPanel>
-                        <StackPanel Visibility="{Binding Path=BenchmarkIsRunning, Converter={StaticResource BoolToHiddenConverter}}"  Orientation="Horizontal" Grid.ColumnSpan="2" >
+                        <StackPanel Visibility="{Binding Path=BenchmarkIsRunning, Converter={StaticResource BoolToCollapsedConverter}}"  Orientation="Horizontal" Grid.ColumnSpan="2" >
                             <Label Margin="22,22,0,0"  Content="{Binding Path=GPUMessage}" HorizontalAlignment="Left" FontSize="18" FontWeight="Bold" Foreground="#FFFFFF"></Label>
                         </StackPanel>
 
@@ -226,7 +226,7 @@
                                                     </Grid>
                                                 </StackPanel>
                                                 <StackPanel Visibility="{Binding Path=IsFinished, Converter={StaticResource BoolToVisibleConverter}}" VerticalAlignment="Center" Orientation="Horizontal">
-                                                    <Viewbox Width="20" Height="20" Visibility="{Binding Path=IsReadyForMining, Converter={StaticResource BoolToHiddenConverter}}">
+                                                    <Viewbox Width="20" Height="20" Visibility="{Binding Path=IsReadyForMining, Converter={StaticResource BoolToCollapsedConverter}}">
                                                         <Canvas Height="20" Width="20">
                                                             <Canvas>
                                                                 <Canvas.RenderTransform>
@@ -342,7 +342,7 @@
                         <RowDefinition Height="0.9*" />
                     </Grid.RowDefinitions>
 
-                    <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="32,15"  Visibility="{Binding Path=IsCpuMiningEnabledByNetwork, Converter={StaticResource BoolToHiddenConverter}}">Coming soon!</Label>
+                    <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="32,15"  Visibility="{Binding Path=IsCpuMiningEnabledByNetwork, Converter={StaticResource BoolToCollapsedConverter}}">Coming soon!</Label>
                     <Border MinHeight="160" Style="{DynamicResource BorderStyleBlueBox}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0"  Grid.Column="0" Opacity="{Binding CpuOpacity}">
                         <Grid>
                             <Grid.ColumnDefinitions>

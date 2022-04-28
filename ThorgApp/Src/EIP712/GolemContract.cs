@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Numerics;
 using Nethereum.Hex.HexConvertors.Extensions;
 using System.Reflection.Metadata.Ecma335;
+using static GolemUI.Interfaces.IPaymentService;
 
 namespace GolemUI.Src.EIP712
 {
@@ -64,6 +65,24 @@ namespace GolemUI.Src.EIP712
         {
             Web3 = new Nethereum.Web3.Web3(rpc);
             ContractAddress = contractAddress;
+        }
+
+        public async Task<(string BlockHash, BigInteger Amount)> SnapState(string address)
+        {
+            var block = await Web3.Eth.Blocks.GetBlockWithTransactionsByNumber.SendRequestAsync(Web3.Eth.DefaultBlock);
+
+            BlockParameter blockNumber = new BlockParameter((ulong)block.Number.Value);
+            var blockHash = block.BlockHash;
+            var getBalanceOfMessage = new BalanceOfFunction() { Owner = address };
+
+            var amount = await Web3.Eth.GetContractQueryHandler<BalanceOfFunction>().QueryAsync<BigInteger>(this.ContractAddress, getBalanceOfMessage, blockNumber).ConfigureAwait(false);
+
+
+            return new()
+            {
+                BlockHash = blockHash,
+                Amount = amount
+            };
         }
 
 
