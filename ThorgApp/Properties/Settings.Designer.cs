@@ -25,24 +25,6 @@ namespace GolemUI.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("LazySubnet")]
-        public string Subnet {
-            get {
-                return ((string)(this["Subnet"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool TestNet {
-            get {
-                return ((bool)(this["TestNet"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("https://9dbe739909b646a9ab6d5376ab5f8ffb@o921571.ingest.sentry.io/6057947")]
         public string SentryDsn {
             get {
@@ -65,24 +47,6 @@ namespace GolemUI.Properties {
         public int BenchmarkResultsVersion {
             get {
                 return ((int)(this["BenchmarkResultsVersion"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("GolemFactory")]
-        public string GolemFactoryPath {
-            get {
-                return ((string)(this["GolemFactoryPath"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ThorgMiner")]
-        public string SettingsSubfolder {
-            get {
-                return ((string)(this["SettingsSubfolder"]));
             }
         }
         
@@ -232,7 +196,7 @@ namespace GolemUI.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(@"Your antivirus is blocking Thorg's mining module called “EthDcrMiner64.exe”. If you do not have antivirus software installed you can unblock this by going to your Windows Security settings, and then clicking on Virus and Threat Protections. 
+        [global::System.Configuration.DefaultSettingValueAttribute(@"Your antivirus is blocking Thorg's mining module called “EthDcrMiner64.exe”. If you do not have antivirus software installed you can unblock this by going to your Windows Security settings, and then clicking on Virus and Threat Protections.
 If it doesn't help you might want to restart Thorg after changing settings in your antivirus.")]
         public string dialog_antivir_message {
             get {
@@ -244,7 +208,7 @@ If it doesn't help you might want to restart Thorg after changing settings in yo
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("No worries though! We will soon release an update with support for cards that hav" +
             "e less than 6B of RAM. Also, stay tuned for CPU support that is just around the " +
-            "corner.\nTill then you can explore the app and get to know Thorg a bit better!")]
+            "corner.\r\nTill then you can explore the app and get to know Thorg a bit better!")]
         public string dialog_gpu_message {
             get {
                 return ((string)(this["dialog_gpu_message"]));
@@ -263,10 +227,59 @@ Most exchanges do not support L2 payments like Polygon that Thorg uses. Please c
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"Your antivirus is blocking Thorg's mining module called “EthDcrMiner64.exe”. If you do not have antivirus software installed you can unblock this by going to your Windows Security settings, and then clicking on Virus and Threat Protections.
+If it doesn't help you might want to restart Thorg after changing settings in your antivirus.")]
+        public string dialog_antivir_message1 {
+            get {
+                return ((string)(this["dialog_antivir_message1"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("No worries though! We will soon release an update with support for cards that hav" +
+            "e less than 6B of RAM. Also, stay tuned for CPU support that is just around the " +
+            "corner.\r\nTill then you can explore the app and get to know Thorg a bit better!")]
+        public string dialog_gpu_message1 {
+            get {
+                return ((string)(this["dialog_gpu_message1"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"Thorg is most suited for addresses that the user has custody of, compared to some other individual than the Thorg user (such as a centralized exchange) having custody of the address.
+Most exchanges do not support L2 payments like Polygon that Thorg uses. Please change your wallet address to one that you're in control of, such as MetaMask.")]
+        public string dialog_wallet_message1 {
+            get {
+                return ((string)(this["dialog_wallet_message1"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("https://polygon-rpc.com/")]
         public string RpcUrl {
             get {
                 return ((string)(this["RpcUrl"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("LazySubnet30")]
+        public string Subnet {
+            get {
+                return ((string)(this["Subnet"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool TestNet {
+            get {
+                return ((bool)(this["TestNet"]));
             }
         }
     }

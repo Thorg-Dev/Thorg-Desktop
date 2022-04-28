@@ -2,12 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="GolemUI.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="Subnet" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">LazySubnet</Value>
-    </Setting>
-    <Setting Name="TestNet" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="SentryDsn" Type="System.String" Scope="Application">
       <Value Profile="(Default)">https://9dbe739909b646a9ab6d5376ab5f8ffb@o921571.ingest.sentry.io/6057947</Value>
     </Setting>
@@ -77,20 +71,26 @@ Till then you can explore the app and get to know Thorg a bit better!</Value>
       <Value Profile="(Default)">Thorg is most suited for addresses that the user has custody of, compared to some other individual than the Thorg user (such as a centralized exchange) having custody of the address.
 Most exchanges do not support L2 payments like Polygon that Thorg uses. Please change your wallet address to one that you're in control of, such as MetaMask.</Value>
     </Setting>
-    <Setting Name="dialog_antivir_message" Type="System.String" Scope="Application">
+    <Setting Name="dialog_antivir_message1" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Your antivirus is blocking Thorg's mining module called “EthDcrMiner64.exe”. If you do not have antivirus software installed you can unblock this by going to your Windows Security settings, and then clicking on Virus and Threat Protections.
 If it doesn't help you might want to restart Thorg after changing settings in your antivirus.</Value>
     </Setting>
-    <Setting Name="dialog_gpu_message" Type="System.String" Scope="Application">
+    <Setting Name="dialog_gpu_message1" Type="System.String" Scope="Application">
       <Value Profile="(Default)">No worries though! We will soon release an update with support for cards that have less than 6B of RAM. Also, stay tuned for CPU support that is just around the corner.
 Till then you can explore the app and get to know Thorg a bit better!</Value>
     </Setting>
-    <Setting Name="dialog_wallet_message" Type="System.String" Scope="Application">
+    <Setting Name="dialog_wallet_message1" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Thorg is most suited for addresses that the user has custody of, compared to some other individual than the Thorg user (such as a centralized exchange) having custody of the address.
 Most exchanges do not support L2 payments like Polygon that Thorg uses. Please change your wallet address to one that you're in control of, such as MetaMask.</Value>
     </Setting>
     <Setting Name="RpcUrl" Type="System.String" Scope="Application">
       <Value Profile="(Default)">https://polygon-rpc.com/</Value>
+    </Setting>
+    <Setting Name="Subnet" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">LazySubnet30</Value>
+    </Setting>
+    <Setting Name="TestNet" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>
