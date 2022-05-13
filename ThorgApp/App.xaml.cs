@@ -106,6 +106,7 @@ namespace GolemUI
             services.AddTransient(typeof(ViewModel.CustomControls.NotificationBarViewModel));
             services.AddTransient(typeof(ViewModel.StatisticsViewModel));
             services.AddTransient(typeof(ViewModel.TRexViewModel));
+            services.AddTransient(typeof(ViewModel.CharityViewModel));
 
             services.AddTransient(typeof(DashboardMain));
             services.AddTransient(typeof(NotificationBar));

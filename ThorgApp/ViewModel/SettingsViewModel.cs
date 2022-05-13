@@ -533,7 +533,7 @@ namespace GolemUI.ViewModel
             {
                 NodeNameHasChanged = true;
                 _providerConfig?.UpdateNodeName(value);
-                NotifyChange("NodeName");
+                //NotifyChange("NodeName");
             }
         }
         public double? ExpectedProfit

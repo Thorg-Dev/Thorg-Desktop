@@ -49,6 +49,10 @@ namespace GolemUI.Command
 
         [JsonProperty("account")]
         public string? Account { get; set; }
+        [JsonProperty("charity_wallet")]
+        public string? CharityAccount { get; set; }
+        [JsonProperty("charity_percentage")]
+        public float? CharityAmmount { get; set; }
 
     }
 
@@ -198,6 +202,14 @@ namespace GolemUI.Command
                     if (value.Account != null)
                     {
                         cmd.Append(" --account \"").Append(value.Account).Append('"');
+                    }
+                    if (value.CharityAccount != null)
+                    {
+                        cmd.Append(" --charity-wallet \"").Append(value.CharityAccount).Append('"');
+                    }
+                    if(value.CharityAmmount != null)
+                    {
+                        cmd.Append(" --charity-percentage \"").Append(value.CharityAmmount).Append('"');
                     }
                     var _none = this.ExecToText(cmd.ToString());
                 }

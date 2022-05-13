@@ -25,6 +25,8 @@ namespace GolemUI.Interfaces
         public void UpdateActiveCpuThreadsCount(int threadsCount);
         void UpdateWalletAddress(string? walletAddress = null);
         void UpdateNodeName(string? value);
+        void UpdateCharityWallet(string? value);
+        void UpdateCharityPercentage(float? value);
 
         Task Prepare(bool isGpuCapable, bool isLowMemoryMode);
     }
