@@ -1002,8 +1002,5 @@
   <ItemGroup>
     <Folder Include="Utils\" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="UI\DefaultImageIcon.png" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

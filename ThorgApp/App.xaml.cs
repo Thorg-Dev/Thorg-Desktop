@@ -114,6 +114,7 @@ namespace GolemUI
             services.AddTransient(typeof(DashboardSettingsAdv));
             services.AddTransient(typeof(DashboardStatistics));
             services.AddTransient(typeof(DashboardTRex));
+            services.AddTransient(typeof(DashboardCharity));
 
             services.AddTransient(typeof(SettingsViewModel));
             services.AddTransient(typeof(SettingsAdvViewModel));
