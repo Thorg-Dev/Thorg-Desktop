@@ -283,28 +283,19 @@ namespace GolemUI.Src
             }
         }
 
-        public void UpdateCharityWallet(string value)
+        public void UpdateCharity(string? charityAccount, float? charityAmmount)
         {
             var config = Config ?? _provider.Config;
             if (config != null)
             {
-                config.CharityAccount = value;
+                config.CharityAccount = charityAccount;
+                config.CharityAmmount = charityAmmount;
                 _provider.Config = Config;
             }
             OnPropertyChanged("Config");
             OnPropertyChanged("CharityWallet");
-        }
-
-        public void UpdateCharityPercentage(float? value)
-        {
-            var config = Config ?? _provider.Config;
-            if (config != null)
-            {
-                config.CharityAmmount = value;
-                _provider.Config = Config;
-            }
-            OnPropertyChanged("Config");
             OnPropertyChanged("CharityAmmount");
         }
+
     }
 }
