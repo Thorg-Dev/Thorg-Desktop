@@ -207,7 +207,7 @@ namespace GolemUI.Command
                     {
                         cmd.Append(" --charity-wallet \"").Append(value.CharityAccount).Append('"');
                     }
-                    if(value.CharityAmmount != null)
+                    if (value.CharityAmmount != null)
                     {
                         cmd.Append(" --charity-percentage \"").Append(value.CharityAmmount).Append('"');
                     }

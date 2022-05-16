@@ -99,7 +99,6 @@
     </ApplicationDefinition>
     <Compile Include="DesignViewModel\CharityViewModel.cs" />
     <Compile Include="DesignViewModel\DesignTRexViewModel.cs" />
-    <Compile Include="Interfaces\ImageMetadata.cs" />
     <Compile Include="Miners\BenchmarkGpuStatus.cs" />
     <Compile Include="Miners\BenchmarkLiveStatus.cs" />
     <Compile Include="Miners\Phoenix\PhoenixMiner.cs" />
@@ -134,7 +133,6 @@
     <Compile Include="Src\GsbEndpointFactory.cs" />
     <Compile Include="Src\GolemUIException.cs" />
     <Compile Include="Src\HistoryDataProvider.cs" />
-    <Compile Include="Src\ImageMetadataProvider.cs" />
     <Compile Include="Src\RemoteSettingsProvider.cs" />
     <Compile Include="Src\Sentry\SentryContext.cs" />
     <Compile Include="Src\Sentry\SentryUserFeedback.cs" />
