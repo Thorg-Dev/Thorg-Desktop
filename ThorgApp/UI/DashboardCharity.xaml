@@ -65,7 +65,7 @@
             <Image  Grid.Column="2"  Source="/UI/Icons/DefaultStyle/png/Branding/app_logo.png" HorizontalAlignment="Right" VerticalAlignment="Top" Width="160" Margin="0,20,30,0"  Grid.RowSpan="2"/>
             <StackPanel Orientation="Horizontal"  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="0, 39, 0, 0" >
                 <Border Width="232" Height="25" BorderThickness="1 0 0 0" BorderBrush="White" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20, 20, 0, 0">
-                    <Label Margin ="26,-5" Padding="0"  Foreground="#FFFFFF" Content="Charity"  FontSize="24"></Label>
+                    <Label Margin ="26,-5" Padding="0"  Foreground="#FFFFFF" Content="Support charities"  FontSize="24"></Label>
                 </Border>
             </StackPanel>
 
@@ -75,7 +75,8 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="45" />
                     <RowDefinition Height="55"/>
-                    <RowDefinition Height="*" MinHeight="320" />
+                    <RowDefinition Height="5*" MinHeight="100" />
+                    <RowDefinition Height="1*"/>
 
 
 
@@ -88,175 +89,43 @@
                     <ColumnDefinition Width="2*" />
 
                 </Grid.ColumnDefinitions>
-                <Border BorderBrush="Black" BorderThickness="1" Grid.RowSpan="3" Grid.ColumnSpan="5">
-                    <StackPanel Orientation="Vertical">
-                        <StackPanel Orientation="Horizontal"/>
-                        <Grid Height="102" Width="362" HorizontalAlignment="Left">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="35"/>
-                                <RowDefinition Height="40"/>
-                                <RowDefinition Height="30"/>
-                            </Grid.RowDefinitions>
-                            <StackPanel Orientation="Horizontal" Height="25">
-                                <Label Padding="0" Margin="0" Content="Charity Wallet" FontFamily="Segoe UI" FontWeight="Bold" FontSize="19" VerticalAlignment="Bottom"/>
-                                <Label Margin="5,0,0,3" Padding="0"  Content="(Click name to edit)" FontWeight="Light" FontSize="10" VerticalAlignment="Bottom"/>
-                            </StackPanel>
-                            <Border BorderThickness="0,0,0,2"   Margin="0, 0,40,0"  Grid.Row="1" Height="20">
-                                <Border.Style>
-                                    <Style TargetType="{x:Type Border}">
-                                        <Setter Property="BorderBrush" Value="#45405D" />
-                                        <Style.Triggers>
-                                            <MultiDataTrigger>
-                                                <MultiDataTrigger.Conditions>
-                                                    <Condition Binding="{Binding (Validation.HasError), ElementName=txtNodeName}" Value="true" />
-                                                </MultiDataTrigger.Conditions>
-                                                <Setter Property="BorderBrush" Value="#FC476E" />
-                                            </MultiDataTrigger>
-                                            <MultiDataTrigger>
-                                                <MultiDataTrigger.Conditions>
-                                                    <Condition Binding="{Binding (Validation.HasError), ElementName=txtNodeName}" Value="false" />
-                                                    <Condition Binding="{Binding NodeNameHasChanged}" Value="true" />
-                                                </MultiDataTrigger.Conditions>
-                                                <Setter Property="BorderBrush" Value="#0FB2AB" />
-                                            </MultiDataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Border.Style>
+                <TextBlock x:Name="textBlock1" Text="From now on you can support any charity" Grid.ColumnSpan="4" FontFamily="Segoe UI Black" FontSize="22"/>
 
-                                <StackPanel>
-                                    <TextBox  MaxLength="45" x:Name="txtNodeName" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" BorderThickness="0"  VerticalAlignment="Top" Background="Transparent" Foreground="#eee" CaretBrush="#fff"  Padding="0,0,0,0" Margin="0">
-                                        <TextBox.Style>
-                                            <Style TargetType="{x:Type TextBox}">
-                                                <Style.Triggers>
-                                                    <Trigger Property="Validation.HasError" Value="true">
-                                                        <Setter Property="ToolTip" Value="{Binding (Validation.Errors)/ErrorContent, RelativeSource={x:Static RelativeSource.Self}}"/>
-                                                    </Trigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </TextBox.Style>
-                                        <TextBox.Text>
-                                            <Binding Path="CharityWallet" UpdateSourceTrigger="PropertyChanged" Delay="100">
-                                                <Binding.ValidationRules>
-                                                    <lc:NodeNameValidator xmlns:lc="clr-namespace:GolemUI.Validators"  ValidatesOnTargetUpdated="True"/>
-                                                </Binding.ValidationRules>
-                                            </Binding>
-                                        </TextBox.Text>
-                                    </TextBox>
-
-                                </StackPanel>
-
-                            </Border>
-                            <Label Margin="2,-4,0,0" Padding="0" Grid.Row="2" Foreground="#0FB2AB" Content="✓ Saved" >
-                                <Label.Style>
-                                    <Style TargetType="{x:Type Label}">
-                                        <Setter Property="Visibility" Value="Collapsed" />
-
-                                        <Style.Triggers>
-                                            <MultiDataTrigger>
-                                                <MultiDataTrigger.Conditions>
-                                                    <Condition Binding="{Binding (Validation.HasError), ElementName=txtNodeName}" Value="true" />
-                                                </MultiDataTrigger.Conditions>
-                                                <Setter Property="Visibility" Value="Collapsed" />
-                                            </MultiDataTrigger>
-                                            <MultiDataTrigger>
-                                                <MultiDataTrigger.Conditions>
-                                                    <Condition Binding="{Binding (Validation.HasError), ElementName=txtNodeName}" Value="false" />
-                                                    <Condition Binding="{Binding NodeNameHasChanged}" Value="true" />
-                                                </MultiDataTrigger.Conditions>
-                                                <Setter Property="Visibility" Value="Visible" />
-                                            </MultiDataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Label.Style>
-                            </Label>
-                        </Grid>
-                        <Grid Height="102" Width="362" HorizontalAlignment="Left">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="35"/>
-                                <RowDefinition Height="40"/>
-                                <RowDefinition Height="30"/>
-                            </Grid.RowDefinitions>
-                            <StackPanel Orientation="Horizontal" Height="25">
-                                <Label Padding="0" Margin="0" Content="Charity percentage" FontFamily="Segoe UI" FontWeight="Bold" FontSize="19" VerticalAlignment="Bottom"/>
-                                <Label Margin="5,0,0,3" Padding="0"  Content="(0.0-1.0)" FontWeight="Light" FontSize="10" VerticalAlignment="Bottom"/>
-                            </StackPanel>
-                            <Border BorderThickness="0,0,0,2"   Margin="0, 0,40,0"  Grid.Row="1" Height="20">
-                                <Border.Style>
-                                    <Style TargetType="{x:Type Border}">
-                                        <Setter Property="BorderBrush" Value="#45405D" />
-                                        <Style.Triggers>
-                                            <MultiDataTrigger>
-                                                <MultiDataTrigger.Conditions>
-                                                    <Condition Binding="{Binding (Validation.HasError), ElementName=txtNodeName}" Value="true" />
-                                                </MultiDataTrigger.Conditions>
-                                                <Setter Property="BorderBrush" Value="#FC476E" />
-                                            </MultiDataTrigger>
-                                            <MultiDataTrigger>
-                                                <MultiDataTrigger.Conditions>
-                                                    <Condition Binding="{Binding (Validation.HasError), ElementName=txtNodeName}" Value="false" />
-                                                    <Condition Binding="{Binding NodeNameHasChanged}" Value="true" />
-                                                </MultiDataTrigger.Conditions>
-                                                <Setter Property="BorderBrush" Value="#0FB2AB" />
-                                            </MultiDataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Border.Style>
-
-                                <StackPanel>
-                                    <TextBox  MaxLength="45" x:Name="txtNodeName1" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" BorderThickness="0"  VerticalAlignment="Top" Background="Transparent" Foreground="#eee" CaretBrush="#fff"  Padding="0,0,0,0" Margin="0">
-                                        <TextBox.Style>
-                                            <Style TargetType="{x:Type TextBox}">
-                                                <Style.Triggers>
-                                                    <Trigger Property="Validation.HasError" Value="true">
-                                                        <Setter Property="ToolTip" Value="{Binding (Validation.Errors)/ErrorContent, RelativeSource={x:Static RelativeSource.Self}}"/>
-                                                    </Trigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </TextBox.Style>
-                                        <TextBox.Text>
-                                            <Binding Path="CharityPercentage" UpdateSourceTrigger="PropertyChanged" Delay="100">
-                                                <Binding.ValidationRules>
-                                                    <lc:PercentageValueValidator xmlns:lc="clr-namespace:GolemUI.Validators"  ValidatesOnTargetUpdated="True"/>
-                                                </Binding.ValidationRules>
-                                            </Binding>
-                                        </TextBox.Text>
-                                    </TextBox>
-
-                                </StackPanel>
-
-                            </Border>
-                            <Label Margin="2,-4,0,0" Padding="0" Grid.Row="2" Foreground="#0FB2AB" Content="✓ Saved" >
-                                <Label.Style>
-                                    <Style TargetType="{x:Type Label}">
-                                        <Setter Property="Visibility" Value="Collapsed" />
-
-                                        <Style.Triggers>
-                                            <MultiDataTrigger>
-                                                <MultiDataTrigger.Conditions>
-                                                    <Condition Binding="{Binding (Validation.HasError), ElementName=txtNodeName}" Value="true" />
-                                                </MultiDataTrigger.Conditions>
-                                                <Setter Property="Visibility" Value="Collapsed" />
-                                            </MultiDataTrigger>
-                                            <MultiDataTrigger>
-                                                <MultiDataTrigger.Conditions>
-                                                    <Condition Binding="{Binding (Validation.HasError), ElementName=txtNodeName}" Value="false" />
-                                                    <Condition Binding="{Binding NodeNameHasChanged}" Value="true" />
-                                                </MultiDataTrigger.Conditions>
-                                                <Setter Property="Visibility" Value="Visible" />
-                                            </MultiDataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Label.Style>
-                            </Label>
-                        </Grid>
-                    </StackPanel>
+                <TextBlock x:Name="textBlock" Text="Just type in Ethereum address of organization that you would like to support, decide what ammount of your mining should go to this wallet and thats it." Grid.ColumnSpan="4" Grid.Row="1"/>
+                <Border BorderBrush="Black" BorderThickness="1" Grid.Row="2" Grid.ColumnSpan="3">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120*"/>
+                            <ColumnDefinition Width="182*"/>
+                            <ColumnDefinition Width="151*"/>
+                            <ColumnDefinition Width="151*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label x:Name="label2" Content="Donation percentage" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.ColumnSpan="3" FontFamily="Segoe UI Black" FontSize="22" />
+                        <Slider x:Name="slider" Orientation="Horizontal" Grid.ColumnSpan="3" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Height="18"/>
+                        <Image x:Name="image" Source="/UI/Icons/DefaultStyle/png/Dialogs/shield.png" Margin="0,107,13,107" Grid.RowSpan="3"/>
+                    </Grid>
                 </Border>
+                <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Button x:Name="BtnCopyWalletAddress" Height="22">
+                        <StackPanel Orientation="Horizontal" Margin="8,1,8,0" VerticalAlignment="Center">
+                            <Image Source="/UI/Icons/DefaultStyle/png/Wallet/copy-icon.png"  VerticalAlignment="Bottom" Margin="0,1,4,2" Width="12"/>
+                            <Label FontSize="10" Content="COPY" Margin="0" Padding="0" />
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="BtnEditWalletAddress" Height="22" VerticalContentAlignment="Center">
+                        <StackPanel Orientation="Horizontal" Margin="8,0,8,0" VerticalAlignment="Center">
+                            <Image Source="/UI/Icons/DefaultStyle/png/Wallet/edit-icon.png"  VerticalAlignment="Bottom" Margin="0,1,4,0" Width="12"/>
+                            <Label FontSize="10" Content="EDIT" Margin="0" Padding="0" />
+                        </StackPanel>
+                    </Button>
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Stretch"><Run Text="Charity address: "/><Run Text="{Binding WalletAddress, Mode=OneWay}" /></TextBlock>
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Stretch"><Run Text="asda8sda8sgfaga7g7aga7g7a7g"/><Run Text="{Binding WalletAddress, Mode=OneWay}" /></TextBlock>
+                </StackPanel>
 
             </Grid>
         </Grid>
