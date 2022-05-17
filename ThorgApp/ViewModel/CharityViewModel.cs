@@ -9,16 +9,13 @@ using System.Threading.Tasks;
 
 namespace GolemUI.ViewModel
 {
-    public class CharityViewModel : INotifyPropertyChanged, IDisposable, IDialogInvoker, ISavableLoadableDashboardPage
+    public class CharityViewModel : INotifyPropertyChanged, IDialogInvoker, ISavableLoadableDashboardPage
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public event RequestDarkBackgroundEventHandler DarkBackgroundRequested;
         public event PageChangeRequestedEvent PageChangeRequested;
 
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
+
 
         public void LoadData()
         {
@@ -35,7 +32,7 @@ namespace GolemUI.ViewModel
             get => settingsProvider.Config.CharityAmmount;
             set
             {
-                settingsProvider.UpdateCharityPercentage(value);
+                //settingsProvider.UpdateCharityPercentage(value);
             }
         }
         public string CharityWallet
@@ -43,8 +40,13 @@ namespace GolemUI.ViewModel
             get => settingsProvider.Config.CharityAccount;
             set
             {
-                settingsProvider.UpdateCharityWallet(value);
+                // settingsProvider.UpdateCharityWallet(value);
             }
+        }
+
+        public void Save()
+        {
+
         }
 
         private IProviderConfig settingsProvider;
