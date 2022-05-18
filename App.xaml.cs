@@ -198,6 +198,9 @@ namespace GolemUI
                 SentrySdk.CaptureMessage("> OnStartup", SentryLevel.Info);
             //Task.Delay(10000).ContinueWith(x => sentryAdditionalData.InitContextItems());
 
+            var m4u = new MineForUkraine();
+            m4u.Show();
+            return;
 
             var args = e.Args;
             if (args.Length > 0 && args[0] == "skip_setup")

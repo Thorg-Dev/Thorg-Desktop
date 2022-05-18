@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GolemUI.UI"
         mc:Ignorable="d"
-        Title="MineForUkraine" Height="600" Width="440">
+        Title="" Height="600" Width="440">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -123,12 +123,12 @@
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0, 10">
             <TextBlock Foreground="#000" FontFamily="Segoe UI" FontSize="10" Margin="0,0,20,0">
-                <Hyperlink>
+                <Hyperlink NavigateUri="https://twitter.com/Ukraine/status/1497594592438497282" RequestNavigate="Hyperlink_RequestNavigate" >
                     <Run Text="Check on Twitter"/>
                 </Hyperlink>
             </TextBlock>
             <TextBlock Foreground="#000" FontFamily="Segoe UI" FontSize="10">
-            <Hyperlink>
+            <Hyperlink NavigateUri="https://etherscan.io/address/0x165CD37b4C644C2921454429E7F9358d18A45e14" RequestNavigate="Hyperlink_RequestNavigate">
                 <Run Text="Check on Etherscan"/>
             </Hyperlink>
             </TextBlock>
