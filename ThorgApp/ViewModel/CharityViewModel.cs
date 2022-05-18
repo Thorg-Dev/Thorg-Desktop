@@ -29,7 +29,8 @@ namespace GolemUI.ViewModel
         double? _charityPercentage;
         public double? CharityPercentage
         {
-            get {
+            get
+            {
                 if (_charityPercentage == null)
                 {
                     _charityPercentage = _settingsProvider.Config.CharityAmmount;
