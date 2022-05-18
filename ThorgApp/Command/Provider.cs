@@ -52,7 +52,7 @@ namespace GolemUI.Command
         [JsonProperty("charity_wallet")]
         public string? CharityAccount { get; set; }
         [JsonProperty("charity_percentage")]
-        public float? CharityAmmount { get; set; }
+        public double? CharityAmmount { get; set; }
 
     }
 

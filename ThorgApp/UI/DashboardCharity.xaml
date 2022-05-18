@@ -18,6 +18,7 @@
                 <ResourceDictionary Source="/UI/Themes/CheckBox/GpuCheckBox.xaml"/>
                 <ResourceDictionary Source="/UI/Themes/Borders/PageBackground.xaml"/>
                 <ResourceDictionary Source="/UI/Themes/Buttons/PinkButton.xaml"/>
+                <ResourceDictionary Source="/UI/Themes/Buttons/RoundedBlueButton.xaml"/>
                 <ResourceDictionary Source="/UI/Themes/Borders/BlueBorder.xaml"/>
                 <ResourceDictionary Source="/UI/Themes/Scrollbars/SettingsScrollView.xaml"/>
                 <ResourceDictionary Source="/UI/Themes/CheckBox/GpuCheckBox.xaml"/>
@@ -106,25 +107,27 @@
                             <ColumnDefinition Width="151*"/>
                         </Grid.ColumnDefinitions>
                         <Label x:Name="label2" Content="Donation percentage" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.ColumnSpan="3" FontFamily="Segoe UI Black" FontSize="22" />
-                        <Slider x:Name="slider" Orientation="Horizontal" Grid.ColumnSpan="3" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Height="18"/>
+                        <Slider x:Name="slider" Style="{StaticResource Horizontal_Slider}" Orientation="Horizontal" Grid.ColumnSpan="3" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" ValueChanged="slider_ValueChanged" Maximum="1" LargeChange="0.05" SmallChange="0.01" TickFrequency="0.05" Value="{Binding CharityPercentage, Mode=OneWay}"/>
                         <Image x:Name="image" Source="/UI/Icons/DefaultStyle/png/Dialogs/shield.png" Margin="0,107,13,107" Grid.RowSpan="3"/>
+                        <TextBlock x:Name="textBlock2" Text="0%" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,10"/>
+                        <TextBlock x:Name="textBlock3" Text="100%" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="122,64,0,0"/>
                     </Grid>
                 </Border>
                 <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                    <Button x:Name="BtnCopyWalletAddress" Height="22" Click="BtnCopyWalletAddress_Click">
+                    <Button x:Name="BtnCopyWalletAddress" Style="{StaticResource RoundedBlueButtonStyle}" Height="22" Click="BtnCopyWalletAddress_Click">
                         <StackPanel Orientation="Horizontal" Margin="8,1,8,0" VerticalAlignment="Center">
                             <Image Source="/UI/Icons/DefaultStyle/png/Wallet/copy-icon.png"  VerticalAlignment="Bottom" Margin="0,1,4,2" Width="12"/>
                             <Label FontSize="10" Content="COPY" Margin="0" Padding="0" />
                         </StackPanel>
                     </Button>
-                    <Button x:Name="BtnEditWalletAddress" Height="22" VerticalContentAlignment="Center" Click="BtnEditWalletAddress_Click">
+                    <Button x:Name="BtnEditWalletAddress" Height="22" VerticalContentAlignment="Center" Click="BtnEditWalletAddress_Click" Style="{DynamicResource RoundedBlueButtonStyle}">
                         <StackPanel Orientation="Horizontal" Margin="8,0,8,0" VerticalAlignment="Center">
                             <Image Source="/UI/Icons/DefaultStyle/png/Wallet/edit-icon.png"  VerticalAlignment="Bottom" Margin="0,1,4,0" Width="12"/>
                             <Label FontSize="10" Content="EDIT" Margin="0" Padding="0" />
                         </StackPanel>
                     </Button>
                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Stretch"><Run Text="Charity address: "/><Run Text="{Binding WalletAddress, Mode=OneWay}" /></TextBlock>
-                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Stretch"><Run Text="asda8sda8sgfaga7g7aga7g7a7g"/><Run Text="{Binding WalletAddress, Mode=OneWay}" /></TextBlock>
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="{Binding CharityWallet, FallbackValue=empty, Mode=OneWay, TargetNullValue=empty, ValidatesOnNotifyDataErrors=False}"/>
                 </StackPanel>
                 <Button x:Name="BtnWithdraw" Style="{StaticResource GradientButtonStyle}" Padding="10" Visibility="{Binding IsInternal, Converter={StaticResource BoolToVisibleConverter}}" Click="BtnWithdraw_Click" Content="Confirm changes" Grid.Column="4"/>
 

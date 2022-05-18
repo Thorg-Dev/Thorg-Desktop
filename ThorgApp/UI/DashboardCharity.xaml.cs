@@ -58,5 +58,10 @@ namespace GolemUI
             }
             ViewModel.RequestDarkBackgroundVisibilityChange(false);
         }
+
+        private void slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            ViewModel.CharityPercentage = e.NewValue;
+        }
     }
 }

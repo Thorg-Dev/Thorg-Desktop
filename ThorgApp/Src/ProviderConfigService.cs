@@ -283,7 +283,7 @@ namespace GolemUI.Src
             }
         }
 
-        public void UpdateCharity(string? charityAccount, float? charityAmmount)
+        public void UpdateCharity(string? charityAccount, double? charityAmmount)
         {
             var config = Config ?? _provider.Config;
             if (config != null)

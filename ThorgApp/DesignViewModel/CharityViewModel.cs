@@ -10,6 +10,6 @@ namespace GolemUI.DesignViewModel
     public class CharityViewModel
     {
         public string CharityWallet => "xearwag0ag5s4ge8";
-        public float CharityPercentage => 0.2f;
+        public double CharityPercentage => 0.2f;
     }
 }

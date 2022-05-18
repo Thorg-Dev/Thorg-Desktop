@@ -16,9 +16,6 @@ namespace GolemUI.ViewModel
         public event RequestDarkBackgroundEventHandler DarkBackgroundRequested;
         public event PageChangeRequestedEvent PageChangeRequested;
 
-
-        string? CharityAddress;
-
         public void LoadData()
         {
             //throw new NotImplementedException();
@@ -29,16 +26,29 @@ namespace GolemUI.ViewModel
             //throw new NotImplementedException();
         }
 
-        float? _charityPercentage;
-        public float? CharityPercentage
+        double? _charityPercentage;
+        public double? CharityPercentage
         {
-            get => _charityPercentage;
+            get {
+                if (_charityPercentage == null)
+                {
+                    _charityPercentage = _settingsProvider.Config.CharityAmmount;
+                }
+                return _charityPercentage;
+            }
             set => _charityPercentage = value;
         }
         string _charityWallet;
         public string CharityWallet
         {
-            get => _charityWallet;
+            get
+            {
+                if (_charityWallet == null)
+                {
+                    _charityWallet = _settingsProvider.Config.CharityAccount;
+                }
+                return _charityWallet;
+            }
             set => _charityWallet = value;
         }
 
@@ -74,9 +84,14 @@ namespace GolemUI.ViewModel
             {
                 return;
             }
-            if (changeAction == DlgEditAddressViewModel.Action.TransferOut)
+            CharityWallet = address;
+            OnPropertyChanged(nameof(CharityWallet));
+        }
+        private void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
             {
-                CharityAddress = address;
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
     }
