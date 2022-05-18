@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using GolemUI.Miners.Phoenix;
 using GolemUI.Miners.TRex;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace GolemUI.Src
 {

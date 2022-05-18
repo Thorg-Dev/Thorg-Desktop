@@ -1,5 +1,6 @@
 ﻿using GolemUI.Command;
 using GolemUI.Interfaces;
+using GolemUI.ViewModel.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,7 @@ namespace GolemUI.ViewModel
         public event PageChangeRequestedEvent PageChangeRequested;
 
 
+        string? CharityAddress;
 
         public void LoadData()
         {
@@ -27,21 +29,22 @@ namespace GolemUI.ViewModel
             //throw new NotImplementedException();
         }
 
+        float? _charityPercentage;
         public float? CharityPercentage
         {
-            get => settingsProvider.Config.CharityAmmount;
-            set
-            {
-                //settingsProvider.UpdateCharityPercentage(value);
-            }
+            get => _charityPercentage;
+            set => _charityPercentage = value;
         }
+        string _charityWallet;
         public string CharityWallet
         {
-            get => settingsProvider.Config.CharityAccount;
-            set
-            {
-                // settingsProvider.UpdateCharityWallet(value);
-            }
+            get => _charityWallet;
+            set => _charityWallet = value;
+        }
+
+        public void CommitChanges()
+        {
+            _settingsProvider.UpdateCharity(CharityWallet, CharityPercentage);
         }
 
         public void Save()
@@ -49,10 +52,32 @@ namespace GolemUI.ViewModel
 
         }
 
-        private IProviderConfig settingsProvider;
-        public CharityViewModel(IProviderConfig _settingsProvider)
+        public void RequestDarkBackgroundVisibilityChange(bool shouldBackgroundBeVisible)
         {
-            settingsProvider = _settingsProvider;
+            DarkBackgroundRequested?.Invoke(shouldBackgroundBeVisible);
+        }
+
+
+        public DlgEditAddressViewModel EditModel => new DlgEditAddressViewModel(_paymentService);
+
+        private IProviderConfig _settingsProvider;
+        private IPaymentService _paymentService;
+        public CharityViewModel(IProviderConfig settingsProvider, IPaymentService paymentService)
+        {
+            _settingsProvider = settingsProvider;
+            _paymentService = paymentService;
+        }
+
+        public async void UpdateAddress(DlgEditAddressViewModel.Action changeAction, string? address)
+        {
+            if (address == null)
+            {
+                return;
+            }
+            if (changeAction == DlgEditAddressViewModel.Action.TransferOut)
+            {
+                CharityAddress = address;
+            }
         }
     }
 }

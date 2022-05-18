@@ -111,13 +111,13 @@
                     </Grid>
                 </Border>
                 <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                    <Button x:Name="BtnCopyWalletAddress" Height="22">
+                    <Button x:Name="BtnCopyWalletAddress" Height="22" Click="BtnCopyWalletAddress_Click">
                         <StackPanel Orientation="Horizontal" Margin="8,1,8,0" VerticalAlignment="Center">
                             <Image Source="/UI/Icons/DefaultStyle/png/Wallet/copy-icon.png"  VerticalAlignment="Bottom" Margin="0,1,4,2" Width="12"/>
                             <Label FontSize="10" Content="COPY" Margin="0" Padding="0" />
                         </StackPanel>
                     </Button>
-                    <Button x:Name="BtnEditWalletAddress" Height="22" VerticalContentAlignment="Center">
+                    <Button x:Name="BtnEditWalletAddress" Height="22" VerticalContentAlignment="Center" Click="BtnEditWalletAddress_Click">
                         <StackPanel Orientation="Horizontal" Margin="8,0,8,0" VerticalAlignment="Center">
                             <Image Source="/UI/Icons/DefaultStyle/png/Wallet/edit-icon.png"  VerticalAlignment="Bottom" Margin="0,1,4,0" Width="12"/>
                             <Label FontSize="10" Content="EDIT" Margin="0" Padding="0" />
@@ -126,6 +126,7 @@
                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Stretch"><Run Text="Charity address: "/><Run Text="{Binding WalletAddress, Mode=OneWay}" /></TextBlock>
                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Stretch"><Run Text="asda8sda8sgfaga7g7aga7g7a7g"/><Run Text="{Binding WalletAddress, Mode=OneWay}" /></TextBlock>
                 </StackPanel>
+                <Button x:Name="BtnWithdraw" Style="{StaticResource GradientButtonStyle}" Padding="10" Visibility="{Binding IsInternal, Converter={StaticResource BoolToVisibleConverter}}" Click="BtnWithdraw_Click" Content="Confirm changes" Grid.Column="4"/>
 
             </Grid>
         </Grid>
