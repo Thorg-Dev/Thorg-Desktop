@@ -89,7 +89,7 @@ namespace GolemUI.Miners
 
         Process? _minerProcess;
 
-        public MinerBenchmark(IMinerApp minerApp, int totalPhoenixReportsNeeded, ILogger logger)
+        public MinerBenchmark(IMinerApp minerApp, int totalPhoenixReportsNeeded = -1, ILogger logger = null)
         {
             _logger = logger;
             _minerParserBenchmark = minerApp.CreateParserForBenchmark();

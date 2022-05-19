@@ -51,9 +51,6 @@
                 <ColumnDefinition Width="168"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-
-           
-
             <tb:TaskbarIcon x:Name="tbNotificationIcon" IconSource="/Media/icon2.ico" DoubleClickCommand="{commands:ShowWindowCommand}" ToolTipText="GolemUI" ContextMenu="{StaticResource TrayMenu}"/>
             <!-- todo:// following code generates binding errors -->
             <!--DoubleClickCommand="{Binding ElementName=DashboardWindow, Path=ShowCommand, Mode=OneWay}"-->

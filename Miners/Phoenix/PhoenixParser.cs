@@ -44,7 +44,7 @@ namespace GolemUI.Miners.Phoenix
             return _gpusInfosParsed;
         }
 
-        public PhoenixParser(bool isPreBenchmark, int totalPhoenixReportsNeeded, ILogger? logger)
+        public PhoenixParser(bool isPreBenchmark = false, int totalPhoenixReportsNeeded = -1, ILogger? logger = null)
         {
             _logger = logger;
             _isPreBenchmark = isPreBenchmark;

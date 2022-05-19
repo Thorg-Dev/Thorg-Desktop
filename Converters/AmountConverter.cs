@@ -52,6 +52,11 @@ namespace GolemUI.Converters
                 {
                     return $"{dv?.ToString("F4")} GLM";
                 }
+                if (parameter?.ToString() == "ETH")
+                {
+                    return $"{dv?.ToString("F5")} ETH";
+                }
+
                 if (parameter?.ToString() == "MATIC")
                 {
                     return $"{dv?.ToString("F6")} MATIC";

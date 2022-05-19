@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using GolemUI.Command;
+using GolemUI.Interfaces;
 using GolemUI.Miners;
 using GolemUI.Miners.Phoenix;
 using GolemUI.Miners.TRex;
@@ -34,7 +35,7 @@ namespace GolemUI
         private readonly ServiceProvider _serviceProvider;
         private readonly GolemUI.ChildProcessManager _childProcessManager;
         private bool _sendDebugInformation;
-        private Dashboard? _dashboard = null;
+        private IDashboard? _dashboard = null;
         public App()
         {
             {
@@ -74,6 +75,8 @@ namespace GolemUI
         }
         private void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<Interfaces.IDashboard, MineForUkraine>();
+
             services.AddSingleton<Interfaces.IStartWithWindows, Src.StartWithWindows>();
             services.AddSingleton<Interfaces.IBenchmarkResultsProvider, Src.BenchmarkResultsProvider>();
             services.AddSingleton<Interfaces.IUserSettingsProvider, Src.UserSettingsProvider>();
@@ -112,13 +115,14 @@ namespace GolemUI
             services.AddTransient(typeof(DashboardSettingsAdv));
             services.AddTransient(typeof(DashboardStatistics));
             services.AddTransient(typeof(DashboardTRex));
+            
 
             services.AddTransient(typeof(SettingsViewModel));
             services.AddTransient(typeof(SettingsAdvViewModel));
             services.AddTransient(typeof(ViewModel.DashboardViewModel));
+            services.AddTransient(typeof(ViewModel.MineForUkraineViewModel));
 
             // Top-Level Windows
-            services.AddTransient(typeof(Dashboard));
             services.AddTransient(typeof(UI.SetupWindow));
             services.AddTransient(typeof(GolemUI.DebugWindow));
 
@@ -126,7 +130,6 @@ namespace GolemUI
             services.AddTransient(typeof(Command.GSB.Payment));
 
             services.AddSingleton(typeof(TRexMiner));
-            services.AddSingleton(typeof(PhoenixMiner));
             services.AddSingleton(typeof(PhoenixMiner));
 
             services.AddLogging(logBuilder =>
@@ -157,16 +160,16 @@ namespace GolemUI
 
         }
 
-        public Dashboard? GetOrCreateDashboardWindow()
+        public IDashboard? GetOrCreateDashboardWindow()
         {
             if (_dashboard == null)
-                _dashboard = _serviceProvider!.GetRequiredService<Dashboard>();
+                _dashboard = _serviceProvider!.GetRequiredService<IDashboard>();
 
             if (_dashboard == null)
             {
                 throw new Exception("FATAL ERROR, Dashboard object creation failed.");
             }
-            Application.Current.MainWindow = _dashboard;
+            Application.Current.MainWindow = _dashboard as Window;
             return _dashboard;
         }
 
@@ -196,13 +199,10 @@ namespace GolemUI
             sentryAdditionalData.InitContextItems();
             if (_sendDebugInformation)
                 SentrySdk.CaptureMessage("> OnStartup", SentryLevel.Info);
-            //Task.Delay(10000).ContinueWith(x => sentryAdditionalData.InitContextItems());
-
-            var m4u = new MineForUkraine();
-            m4u.Show();
-            return;
+            
 
             var args = e.Args;
+            /* SKIP SETUP
             if (args.Length > 0 && args[0] == "skip_setup")
             {
                 //skip setup
@@ -213,15 +213,11 @@ namespace GolemUI
                 window.Show();
                 return;
             }
+            */
 
-
-            var dashboardWindow = _serviceProvider!.GetRequiredService<Dashboard>();
+            var dashboardWindow = _serviceProvider!.GetRequiredService<Interfaces.IDashboard>();
 
             dashboardWindow.Show();
-#if DEBUG
-            StartDebugWindow(dashboardWindow);
-#endif
-
             _dashboard = dashboardWindow;
 
         }

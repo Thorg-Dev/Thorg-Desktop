@@ -340,7 +340,7 @@ namespace GolemUI.Src
                     _minerLiveStatus.MergeUserSettingsFromExternalLiveStatus(externalLiveStatus);
                     OnPropertyChanged("Status");
                     OnPropertyChanged("TotalMhs");
-                    if (_minerLiveStatus.NumberOfPhoenixPerfReports >= _minerLiveStatus.TotalPhoenixReportsBenchmark)
+                    if (_minerLiveStatus.TotalPhoenixReportsBenchmark > 0 && _minerLiveStatus.NumberOfPhoenixPerfReports >= _minerLiveStatus.TotalPhoenixReportsBenchmark)
                     {
                         foreach (var gpu in _minerLiveStatus.GPUs)
                         {
