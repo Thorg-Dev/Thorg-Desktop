@@ -12,7 +12,7 @@ namespace GolemUI.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.2.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -88,7 +88,7 @@ namespace GolemUI.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool OpenConsoleProvider {
             get {
                 return ((bool)(this["OpenConsoleProvider"]));
@@ -226,7 +226,7 @@ If it doesn't help you might want to restart Thorg after changing settings in yo
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("No worries though! We will soon release an update with support for cards that hav" +
             "e less than 6B of RAM. Also, stay tuned for CPU support that is just around the " +
-            "corner.\nTill then you can explore the app and get to know Thorg a bit better!")]
+            "corner.\r\nTill then you can explore the app and get to know Thorg a bit better!")]
         public string dialog_gpu_message {
             get {
                 return ((string)(this["dialog_gpu_message"]));

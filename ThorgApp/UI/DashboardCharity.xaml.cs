@@ -17,6 +17,7 @@ using GolemUI.Interfaces;
 using GolemUI.Model;
 using GolemUI.Src.AppNotificationService;
 using GolemUI.ViewModel.Dialogs;
+using System;
 
 namespace GolemUI
 {
@@ -62,6 +63,19 @@ namespace GolemUI
         private void slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             ViewModel.CharityPercentage = e.NewValue;
+            var margin = CurrentPercentage.Margin;
+
+            //Point position = desiredElement.PointToScreen(new Point(0d, 0d));
+            Point minPosition = MinPercentage.PointToScreen(new Point(0d, 0d));
+            Point maxPosition = MaxPercentage.PointToScreen(new Point(0d, 0d));
+            Vector distance = ((Vector)maxPosition) - ((Vector)minPosition);
+            Vector offset = (Vector)(distance * ViewModel.CharityPercentage);
+
+            //Bit of magic numbering to make it look right
+            margin.Left = offset.X / 1.5 - 10;
+
+            CurrentPercentage.Margin = margin;
+            CurrentPercentage.Text = String.Format("{0:P0}", ViewModel.CharityPercentage);
         }
     }
 }
