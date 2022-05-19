@@ -108,7 +108,7 @@
                         </Grid.ColumnDefinitions>
                         <Label x:Name="label2" Content="Donation percentage" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.ColumnSpan="3" FontFamily="Segoe UI Black" FontSize="22" />
                         <Slider x:Name="slider" Style="{StaticResource Horizontal_Slider}" Orientation="Horizontal" Grid.ColumnSpan="3" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" ValueChanged="slider_ValueChanged" Maximum="1" LargeChange="0.05" SmallChange="0.01" TickFrequency="0.05" Value="{Binding CharityPercentage, Mode=OneWay}"/>
-                        <Image x:Name="image" Source="/UI/Icons/DefaultStyle/png/Dialogs/shield.png" Margin="0,107,13,107" Grid.RowSpan="3"/>
+                        <Image x:Name="image" Source="/UI/heart-icon.png" Grid.RowSpan="3"/>
                         <TextBlock x:Name="MinPercentage" Text="0%" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,10"/>
                         <TextBlock x:Name="MaxPercentage" Text="100%" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="122,64,0,0"/>
                         <TextBlock x:Name="CurrentPercentage" Text="0%" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.ColumnSpan="5"/>

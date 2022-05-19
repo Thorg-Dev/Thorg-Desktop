@@ -1005,5 +1005,8 @@
   <ItemGroup>
     <Resource Include="UI\Icons\DefaultStyle\png\Charity.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UI\heart-icon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
