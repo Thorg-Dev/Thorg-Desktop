@@ -76,7 +76,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="45" />
                     <RowDefinition Height="55"/>
-                    <RowDefinition Height="5*" MinHeight="100" />
+                    <RowDefinition Height="3*" MinHeight="100" />
                     <RowDefinition Height="1*"/>
 
 
@@ -90,9 +90,9 @@
                     <ColumnDefinition Width="2*" />
 
                 </Grid.ColumnDefinitions>
-                <TextBlock x:Name="textBlock1" Text="From now on you can support any charity" Grid.ColumnSpan="4" FontFamily="Segoe UI Black" FontSize="22"/>
+                <TextBlock x:Name="textBlock1" Text="From now on you can support any charity" Grid.ColumnSpan="3" FontFamily="Segoe UI Black" FontSize="22"/>
 
-                <TextBlock x:Name="textBlock" Text="Just type in Ethereum address of organization that you would like to support, decide what ammount of your mining should go to this wallet and thats it." Grid.ColumnSpan="4" Grid.Row="1"/>
+                <TextBlock x:Name="textBlock" Text="Just type in Ethereum address of organization that you would like to support, decide what ammount of your mining should go to this wallet and thats it." Grid.ColumnSpan="3" Grid.Row="1"/>
                 <Border BorderBrush="Black" BorderThickness="1" Grid.Row="2" Grid.ColumnSpan="3">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -101,36 +101,36 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="120*"/>
-                            <ColumnDefinition Width="182*"/>
-                            <ColumnDefinition Width="151*"/>
-                            <ColumnDefinition Width="151*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="0.2*"/>
                         </Grid.ColumnDefinitions>
                         <Label x:Name="label2" Content="Donation percentage" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.ColumnSpan="3" FontFamily="Segoe UI Black" FontSize="22" />
                         <Slider x:Name="slider" Style="{StaticResource Horizontal_Slider}" Orientation="Horizontal" Grid.ColumnSpan="3" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" ValueChanged="slider_ValueChanged" Maximum="1" LargeChange="0.05" SmallChange="0.01" TickFrequency="0.05" Value="{Binding CharityPercentage, Mode=OneWay}"/>
                         <Image x:Name="image" Source="/UI/heart-icon.png" Grid.RowSpan="3"/>
                         <TextBlock x:Name="MinPercentage" Text="0%" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,10"/>
-                        <TextBlock x:Name="MaxPercentage" Text="100%" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="122,64,0,0"/>
+                        <TextBlock x:Name="MaxPercentage" Text="100%" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
                         <TextBlock x:Name="CurrentPercentage" Text="0%" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.ColumnSpan="5"/>
                     </Grid>
                 </Border>
-                <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                    <Button x:Name="BtnCopyWalletAddress" Style="{StaticResource RoundedBlueButtonStyle}" Height="22" Click="BtnCopyWalletAddress_Click">
-                        <StackPanel Orientation="Horizontal" Margin="8,1,8,0" VerticalAlignment="Center">
-                            <Image Source="/UI/Icons/DefaultStyle/png/Wallet/copy-icon.png"  VerticalAlignment="Bottom" Margin="0,1,4,2" Width="12"/>
-                            <Label FontSize="10" Content="COPY" Margin="0" Padding="0" />
-                        </StackPanel>
-                    </Button>
-                    <Button x:Name="BtnEditWalletAddress" Height="22" VerticalContentAlignment="Center" Click="BtnEditWalletAddress_Click" Style="{DynamicResource RoundedBlueButtonStyle}">
+                <Button x:Name="BtnWithdraw" Style="{StaticResource GradientButtonStyle}" Padding="10" Visibility="{Binding IsInternal, Converter={StaticResource BoolToVisibleConverter}}" Click="BtnWithdraw_Click" Content="Confirm changes" Grid.Column="4"/>
+                <Grid Grid.Row="3" Grid.ColumnSpan="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.5*"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock VerticalAlignment="Center"><Run Text="Charity address: "/><Run Text="{Binding WalletAddress, Mode=OneWay}" /></TextBlock>
+                    <TextBlock VerticalAlignment="Center" Text="{Binding CharityWallet, FallbackValue=empty, Mode=OneWay, TargetNullValue=empty, ValidatesOnNotifyDataErrors=False}" Grid.Column="1"/>
+                    <Button x:Name="BtnEditWalletAddress" Height="Auto" VerticalContentAlignment="Center" Click="BtnEditWalletAddress_Click" Style="{DynamicResource RoundedBlueButtonStyle}" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <StackPanel Orientation="Horizontal" Margin="8,0,8,0" VerticalAlignment="Center">
                             <Image Source="/UI/Icons/DefaultStyle/png/Wallet/edit-icon.png"  VerticalAlignment="Bottom" Margin="0,1,4,0" Width="12"/>
                             <Label FontSize="10" Content="EDIT" Margin="0" Padding="0" />
                         </StackPanel>
                     </Button>
-                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Stretch"><Run Text="Charity address: "/><Run Text="{Binding WalletAddress, Mode=OneWay}" /></TextBlock>
-                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="{Binding CharityWallet, FallbackValue=empty, Mode=OneWay, TargetNullValue=empty, ValidatesOnNotifyDataErrors=False}"/>
-                </StackPanel>
-                <Button x:Name="BtnWithdraw" Style="{StaticResource GradientButtonStyle}" Padding="10" Visibility="{Binding IsInternal, Converter={StaticResource BoolToVisibleConverter}}" Click="BtnWithdraw_Click" Content="Confirm changes" Grid.Column="4"/>
+                </Grid>
 
             </Grid>
         </Grid>
