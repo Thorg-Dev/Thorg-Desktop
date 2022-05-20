@@ -164,11 +164,11 @@ namespace GolemUI.Src
                         { "invalid-share", 0m },
                         { "hash-rate", 0m }
                     }), out _args, out _info);
-/*                    if (isGpuCapable)
-                    {
-                        _provider.ActivatePreset("hminer");
-                        changedProperties.Add("IsMiningActive");
-                    }*/
+                    /*                    if (isGpuCapable)
+                                        {
+                                            _provider.ActivatePreset("hminer");
+                                            changedProperties.Add("IsMiningActive");
+                                        }*/
                 }
                 else
                 {
@@ -195,11 +195,11 @@ namespace GolemUI.Src
                         { "invalid-share", 0m },
                         { "hash-rate", 0m }
                     }), out _args, out _info);
-            /*        if (isGpuCapable)
-                    {
-                        _provider.ActivatePreset("gminer");
-                        changedProperties.Add("IsMiningActive");
-                    }*/
+                    /*        if (isGpuCapable)
+                            {
+                                _provider.ActivatePreset("gminer");
+                                changedProperties.Add("IsMiningActive");
+                            }*/
                 }
                 else
                 {
@@ -282,5 +282,20 @@ namespace GolemUI.Src
                 }
             }
         }
+
+        public void UpdateCharity(string? charityAccount, double? charityAmmount)
+        {
+            var config = Config ?? _provider.Config;
+            if (config != null)
+            {
+                config.CharityAccount = charityAccount;
+                config.CharityAmmount = charityAmmount;
+                _provider.Config = Config;
+            }
+            OnPropertyChanged("Config");
+            OnPropertyChanged("CharityWallet");
+            OnPropertyChanged("CharityAmmount");
+        }
+
     }
 }

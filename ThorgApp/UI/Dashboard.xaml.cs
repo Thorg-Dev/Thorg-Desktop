@@ -47,6 +47,7 @@ namespace GolemUI
         public Dashboard(DashboardSettingsAdv _dashboardSettingsAdv, INotificationService notificationService, IUserFeedbackService userFeedback, Interfaces.IProcessController processController, Src.SingleInstanceLock singleInstanceLock, Interfaces.IProviderConfig providerConfig, Src.BenchmarkService benchmarkService, Interfaces.IUserSettingsProvider userSettingsProvider, ViewModel.DashboardViewModel dashboardViewModel, NotificationBarViewModel notificationViewModel,
             PhoenixMiner phoenixMiner, TRexMiner trexMiner)
         {
+
             _phoenixMiner = phoenixMiner;
             _trexMiner = trexMiner;
 

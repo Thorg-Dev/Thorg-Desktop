@@ -97,6 +97,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DesignViewModel\CharityViewModel.cs" />
     <Compile Include="DesignViewModel\DesignTRexViewModel.cs" />
     <Compile Include="Miners\BenchmarkGpuStatus.cs" />
     <Compile Include="Miners\BenchmarkLiveStatus.cs" />
@@ -136,6 +137,9 @@
     <Compile Include="Src\Sentry\SentryContext.cs" />
     <Compile Include="Src\Sentry\SentryUserFeedback.cs" />
     <Compile Include="Src\StartWithWindows.cs" />
+    <Compile Include="UI\DashboardCharity.xaml.cs">
+      <DependentUpon>DashboardCharity.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\DashboardTRex.xaml.cs">
       <DependentUpon>DashboardTRex.xaml</DependentUpon>
     </Compile>
@@ -288,9 +292,11 @@
       <DependentUpon>UsageDescription.xaml</DependentUpon>
     </Compile>
     <Compile Include="Validators\NonEmptyStringValidator.cs" />
+    <Compile Include="Validators\PercentageValueValidator.cs" />
     <Compile Include="Validators\TransferAmountValidator.cs" />
     <Compile Include="Validators\NodeNameValidator.cs" />
     <Compile Include="Validators\EthAddrValidator.cs" />
+    <Compile Include="ViewModel\CharityViewModel.cs" />
     <Compile Include="ViewModel\CustomControls\NotificationBar\NotificationBarNotification.cs" />
     <Compile Include="ViewModel\CustomControls\NotificationBar\NotificationBarViewModel.cs" />
     <Compile Include="ViewModel\CustomControls\NotificationBar\NotificationState.cs" />
@@ -338,6 +344,10 @@
     <Page Include="UI\Charts\PrettyChartBin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\DashboardCharity.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\DashboardTRex.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -991,6 +1001,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UI\Icons\DefaultStyle\png\Charity.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UI\heart-icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

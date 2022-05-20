@@ -94,6 +94,42 @@
             </Setter.Value>
         </Setter>        
     </Style>
+    <Style x:Key="NavSidepanelButtonCharity" TargetType="RadioButton" BasedOn="{StaticResource NavSidepanelButtonDashboard}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <Border>
+                        <Viewbox>
+                            <Canvas Height="18" Width="18">
+                                <Canvas.RenderTransform>
+                                    <TransformGroup>
+                                        <TranslateTransform X="-3.0" Y="-3.0" />
+                                    </TransformGroup>
+                                </Canvas.RenderTransform>
+                                <!-- rectangle helps with generating mouse hover events, otherwise it won't work as desired -->
+                                <!-- Making rectangle a bit bigger helps with hitting button with the mouse -->
+                                <Rectangle x:Name="backRect" StrokeThickness="1" Stroke="{StaticResource StrokeBrush}" Fill="{StaticResource BackBrush}" Canvas.Top="-3" Canvas.Left="-3" Height="30" Width="30" ToolTip="Settings"></Rectangle>
+                                <Image Source="/ThorgMiner;component/UI/Icons/DefaultStyle/png/Charity.png" Height="22" Width="22" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Canvas>
+                        </Viewbox>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <!--Setter Property="Fill" TargetName="pathIcon" Value="{StaticResource FillBrushHover}"/-->
+                            <Setter Property="Fill" TargetName="backRect" Value="{StaticResource BackBrushChecked}"/>
+                            <Setter Property="Stroke" TargetName="backRect" Value="{StaticResource StrokeBrushChecked}"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <!--Setter Property="Fill" TargetName="pathIcon" Value="{StaticResource FillBrushChecked}"/-->
+                            <Setter Property="Fill" TargetName="backRect" Value="{StaticResource BackBrushChecked}"/>
+                            <Setter Property="Stroke" TargetName="backRect" Value="{StaticResource StrokeBrushChecked}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="NavSidepanelButtonWallet" TargetType="RadioButton" BasedOn="{StaticResource NavSidepanelButtonDashboard}">
         <Setter Property="Template">
             <Setter.Value>
