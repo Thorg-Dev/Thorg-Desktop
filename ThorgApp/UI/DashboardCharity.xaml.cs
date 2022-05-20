@@ -32,11 +32,16 @@ namespace GolemUI
             ViewModel = viewModel;
             this.DataContext = this.ViewModel;
             _notificationService = notificationService;
+
+        private void notifyAboutChanges()
+        {
+            BtnConfirmChanges.IsEnabled = true;
         }
 
         private void BtnWithdraw_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.CommitChanges();
+            BtnConfirmChanges.IsEnabled = false;
         }
 
         private void BtnCopyWalletAddress_Click(object sender, RoutedEventArgs e)
@@ -56,12 +61,17 @@ namespace GolemUI
             if (dlg != null && dlg.Model != null && (dlg.ShowDialog() ?? false))
             {
                 ViewModel.UpdateAddress(dlg.Model.ChangeAction, dlg.Model.NewAddress);
+                notifyAboutChanges();
             }
             ViewModel.RequestDarkBackgroundVisibilityChange(false);
         }
 
         private void slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
+            if (e.NewValue != ViewModel.CharityPercentage)
+            {
+                notifyAboutChanges();
+            }
             ViewModel.CharityPercentage = e.NewValue;
             var margin = CurrentPercentage.Margin;
 

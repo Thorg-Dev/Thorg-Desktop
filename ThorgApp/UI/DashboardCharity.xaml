@@ -115,7 +115,7 @@
                         <TextBlock x:Name="CurrentPercentage" Text="0%" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.ColumnSpan="5"/>
                     </Grid>
                 </Border>
-                <Button x:Name="BtnWithdraw" Style="{StaticResource GradientButtonStyle}" Padding="10" Visibility="{Binding IsInternal, Converter={StaticResource BoolToVisibleConverter}}" Click="BtnWithdraw_Click" Content="Confirm changes" Grid.Column="4"/>
+                <Button x:Name="BtnConfirmChanges" Style="{StaticResource GradientButtonStyle}" Padding="10" Visibility="{Binding IsInternal, Converter={StaticResource BoolToVisibleConverter}}" Click="BtnWithdraw_Click" Content="Confirm changes" Grid.Column="4" IsEnabled="False"/>
                 <Grid Grid.Row="3" Grid.ColumnSpan="3">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0.5*"/>
