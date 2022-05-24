@@ -133,6 +133,7 @@
     <Compile Include="Src\GsbEndpointFactory.cs" />
     <Compile Include="Src\GolemUIException.cs" />
     <Compile Include="Src\HistoryDataProvider.cs" />
+    <Compile Include="Src\MineService.cs" />
     <Compile Include="Src\RemoteSettingsProvider.cs" />
     <Compile Include="Src\Sentry\SentryContext.cs" />
     <Compile Include="Src\Sentry\SentryUserFeedback.cs" />
