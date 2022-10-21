@@ -13,7 +13,7 @@ namespace GolemUI.Miners
         public string NodeName = "";
         public string Cards = "";
         public string Niceness = "";
-        public string MiningMode = "ETH"; //eth or etc
+        public string MiningMode = "ETC"; //eth or etc
     }
 
     public interface IMinerApp
